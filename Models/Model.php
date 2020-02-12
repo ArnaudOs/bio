@@ -16,7 +16,7 @@ abstract class Model
             throw new Exception('Vous devez absolument spécifier une propriété protected $table dans votre classe qui hérite de Model et qui contient le nom de la table à attaquer.');
         }
 
-        $this->db = new PDO("mysql:host=localhost;dbname=quinte;charset=utf8", "root","",[
+        $this->db = new PDO("mysql:host=localhost;dbname=beebee;charset=utf8", "root","",[
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         ]);
     }

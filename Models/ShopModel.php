@@ -2,16 +2,14 @@
 require_once "Model.php";
 class ShopModel extends Model{
 
-    protected $table = "save_resultats";
+    protected $table = "products";
 
-    public function showAll(){
-      
-        $query=$this->db->prepare ('SELECT * FROM save_resultats limit 31');
+
+    public function showProduct(){
+
+        $query = $this->db->prepare("SELECT * FROM `products`");
         $query->execute();
-        return $query->fetchAll(PDO::FETCH_ASSOC);
-    
-        }
-
-
+        return $query->fetchALL(PDO::FETCH_ASSOC);
+                }
 }
 ?>
