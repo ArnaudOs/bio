@@ -1,0 +1,44 @@
+<?php
+
+if (!isset($_SESSION['panier'])) {
+    $_SESSION['panier'] = [];
+};
+$panier = $_SESSION['panier'];
+    var_dump($panier);
+    var_dump($_POST);
+?>
+<h1>Votre panier</h1>
+<table>
+<thead>
+    <tr>
+    <th>Plat</th>
+    <th>Quantité</th>
+    <th>Prix</th>
+    <th>Prix Total</th>
+    <th></th>
+    </tr>
+</thead>
+
+<tbody>
+    <?php foreach ($panier as $element) : ?>
+    <tr>
+        <td>
+            <?= $element['titre'] ?>
+        </td>
+        <td>
+            <form action="update-panier.php" method="post" >
+                <input type="hidden" name="id" value="<?= $element['titre']['id']  ?>">
+                <input type="number" name="quantity" id="" placeholder="quantity" min=1 required="required" value="<?= $element['qtProduct'] ?>" onchange="this.form.submit()">
+                <button type="submit">Envoi</button>
+            </form>    
+        </td>
+        <td><?= $element['plat']->prix ?>€</td>
+        <td><?= $element['quantity'] * $element['produit']->prix ?> €</td>
+        <td>
+            <a href="delete-panier.php?id=<?= $element['titre']['id'] ?>" class="mod">supprimer</a>
+        </td>
+    </tr>
+    <?php endforeach ?>
+</tbody>
+
+

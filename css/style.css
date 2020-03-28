@@ -217,7 +217,8 @@ input {
 
 button,
 select {
-  text-transform: none; }
+  text-transform: none; 
+  align-self:flex-start}
 
 button,
 [type="button"],

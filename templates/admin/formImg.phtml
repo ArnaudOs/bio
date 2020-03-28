@@ -1,0 +1,27 @@
+<form action="index.php?controller=Admin&task=uploadImageAll" method="post" enctype="multipart/form-data" class="formul" name="uploadimage">
+<legend>Ajouter une image</legend>
+<label for="uploadfile">Importer le fichier image</label>
+    <input type="file" name="uploadfile" >
+        <select name="categories" id="categories">
+            <option value="produits">produits</option>
+            <option value="anniversaire">anniversaire</option>
+            <option value="avant">avant</option>
+            <option value="bapteme">baptême</option>
+            <option value="ceremonie">ceremonie</option>
+            <option value="decouverte">decouverte</option>
+            <option value="famille">famille</option>
+            <option value="magasin">magasin</option>
+            <option value="mariage">mariage</option>
+            <option value="maternite">maternite</option>
+            <option value="nourrisson">nourrisson</option>
+            <option value="soirée">soirée</option>
+            <option value="solo">solo</option>
+            <option value="vin">vin</option>
+        </select>
+<label for="produit">Nom du produit</label>
+<input type="text" name="titre" placeholder="titre"/>
+<input type="number" name="price" placeholder="prix"/>
+
+<button type="submit" name="submit" class="crud">Envoi</button>
+</form>
+</main>

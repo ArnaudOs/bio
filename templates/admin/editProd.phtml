@@ -1,0 +1,17 @@
+<form action="index.php?controller=Admin&task=updateProd" method="post" enctype="multipart/form-data" class="form-group">
+<legend>Editer une image pour les produits</legend>
+<img class="img-fluid" src="images/products/<?= $product['img_name']?>" />
+
+<input type="hidden" name="id" value="<?= $product['id'] ?>" >
+<label for="uploadfile">Image en cours</label>
+<input type="text" name="uploadfile" value="<?= $product['img_name'] ?>" class="form-control">
+<label for="fileupdate">Importer le fichier image</label>
+<input type="file" name="fileupdate" >
+<input type="text" name="titleText" value="<?= $product['title'] ?>" class="form-control">
+<input type="text" name="price" value="<?= $product['price']?>" class="form-control">
+
+<button type="submit" class="crud">Editer</button>
+
+<a href="index.php?controller=Admin&task=deleteProd&id=<?= $product['id'] ?>" class=""> Suppression Produit</a>
+
+</form>

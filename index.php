@@ -1,5 +1,5 @@
 <?php
-// ob_start();
+ob_start();
 // define('ROOT_PATH', DIR);
 
 $controllerName = filter_input(INPUT_GET, 'controller', FILTER_SANITIZE_SPECIAL_CHARS);

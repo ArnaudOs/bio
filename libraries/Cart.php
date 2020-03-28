@@ -1,6 +1,4 @@
 <?php
-require_once("libraries/Session.php");
-
 class Cart
 {
 

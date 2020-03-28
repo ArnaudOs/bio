@@ -1,10 +1,9 @@
-<!-- <?php
-
+<?php
 if(isset($_SESSION["cart_item"])){
     $total_quantity = 0;
 	$total_price = 0;
 }
-?>	 -->
+?>	
 <section class="ftco-section">
     	<div class="container">
     		<div class="row justify-content-center">
@@ -21,32 +20,28 @@ if(isset($_SESSION["cart_item"])){
     		<div class="row">
 			<?php foreach ($products as $product) :?>
 			<div class="col-md-6 col-lg-3 ftco-animate">
-
-					<form action="index.php?controller=Panier&task=showPanier" method="POST" class="formpanier">
-
+			
     				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/products/<?= $product['img_name']?>" alt="Colorlib Template">
-    						<div class="overlay"></div>
+    					<a href="#" class="img-prod"><img class="img-fluid" src="images/products/<?= $product['img_name']?>" alt="image produit">
+    					<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center m-auto">
-							<input type="hidden" value=<?=$product['id']?> name="product-id"/>
 							<h3><a href="#"><?=$product['title']?></a></h3>
-							<input type="number" name="qtProduct" class="qty-product" >
+							<input type="number" name="qtProductSav">
 							<p class="price"><span><?=$product['price'] . "€" ?></span></p>
-							<!-- <button type="submit">Ajouter au panier</button> -->
     						<div class="d-flex">
     							<div class="pricing">
-		    					</div>
+								</div>
+								<a href="index.php?controller=Admin&task=editProduct&id=<?= $product['id'] ?>" ><i class="far fa-edit"></i>Editer</a>
 	    					</div>
     					</div>
     				</div>
 				</div>
-				</form>
 				<?php endforeach ?>
 
-				</div>
-			<form action="index.php?controller=Panier&task=showPanier" method="post" class="addForm">
-			<button type="submit" name="commande">Commander </button>
+				</div> -->
+			<form action="index.php?controller=Shop&task=addProduct" method="post">
+			<button type="submit" name="commande">Commander</button>
 			</form>	
     			
     		<div class="row mt-5">
@@ -67,20 +62,5 @@ if(isset($_SESSION["cart_item"])){
     	</div>
     </section>
 	</main>
-	<!-- <script>
-$(document).ready(function(){
-    // add to cart button listener
-    $('.addForm').on('submit', function(){
- 
-        // info is in the table / single product layout
-        var id = $(this).find('.product-id').text();
-        var quantity = $(this).find('.qty-product').val();
- 
-        // redirect to add_to_cart.php, with parameter values to process the request
-        window.location.href = "addToCart.php?id=" + id + "&quantity=" + quantity;
-        return false;
-    });
-});
-</script> -->
   
    
