@@ -1,11 +1,19 @@
 <?php
 
+require_once("libraries/Session.php");
+// require_once("../admin/libraries/Models/Reservation.Model.php");
+
+
+
+
+
 if (!isset($_SESSION['panier'])) {
     $_SESSION['panier'] = [];
 };
 $panier = $_SESSION['panier'];
-    var_dump($panier);
-    var_dump($_POST);
+var_dump($panier);
+// require("templates/partials/header.phtml");
+// require("footer.phtml");
 ?>
 <h1>Votre panier</h1>
 <table>
@@ -23,22 +31,29 @@ $panier = $_SESSION['panier'];
     <?php foreach ($panier as $element) : ?>
     <tr>
         <td>
-            <?= $element['titre'] ?>
+            <?= $element['product']->title ?>
         </td>
         <td>
-            <form action="update-panier.php" method="post" >
-                <input type="hidden" name="id" value="<?= $element['titre']['id']  ?>">
-                <input type="number" name="quantity" id="" placeholder="quantity" min=1 required="required" value="<?= $element['qtProduct'] ?>" onchange="this.form.submit()">
+            <form action="index.php?controller=PanierTest&task=updateItem" method="post" >
+                <input type="hidden" name="id" value="<?= $element['product']->id ?>">
+                <input type="number" name="quantity" id="" placeholder="quantity" min=1 required="required" value="<?= $element['quantity'] ?>" onchange="this.form.submit()">
                 <button type="submit">Envoi</button>
             </form>    
         </td>
-        <td><?= $element['plat']->prix ?>€</td>
-        <td><?= $element['quantity'] * $element['produit']->prix ?> €</td>
+        <td><?= $element['product']->price ?>€</td>
+        <td><?= $element['quantity'] * $element['product']->price ?> €</td>
         <td>
-            <a href="delete-panier.php?id=<?= $element['titre']['id'] ?>" class="mod">supprimer</a>
+            <a href="index.php?controller=PanierTest&task=deleteItem&id=<?= $element['product']->id ?>" class="mod">supprimer</a>
         </td>
     </tr>
     <?php endforeach ?>
 </tbody>
 
 
+</table>
+<!-- // SELECT plats.id, plats.photo, plats.nom_plat, plats.prix, orders_plat.quantity, (plats.prix* orders_plat.quantity) as total
+FROM plats
+JOIN orders_plat ON orders_plat.plat_id=plats.id
+WHERE orders_plat.order_id=1 -->
+<a href="index.php?controller=PanierTest&task=indexPanier" class="mod">Rajouter des plats</a>
+<a href="../index.php?controller=Panier&task=addOrder" class="mod">commander</a>

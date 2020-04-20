@@ -1,4 +1,3 @@
-
 <html>
 <head>
 <title>Simple Ecommerce Project in PHP & MySQL</title>
@@ -23,6 +22,7 @@
 <div class="container"> 
    <div class="row">
       <div class="col-md-5">
-	<a class="img-responsive logo" href="index.php"><img src="http://codingcyber.com/wp-content/uploads/2016/09/CC_Web_Logo.png" /></a>
+	<!-- <a class="img-responsive logo" href="index.php"><img src="http://codingcyber.com/wp-content/uploads/2016/09/CC_Web_Logo.png" /></a> -->
       </div>
-   </div
+   </div>
+</div>

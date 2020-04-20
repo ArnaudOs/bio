@@ -1,0 +1,42 @@
+
+<div class="container">
+<?php 
+$items = $_SESSION['cart'];
+$cartitems = explode(",", $items);
+var_dump($_SESSION);
+?>
+	<div class="row">
+	  <table class="table">
+	  	<tr>
+	  	<th>S.NO</th>
+	  	<th>Item Name</th>
+	  	<th>Price</th>
+	  	</tr>
+		<?php
+		$total = 0;
+		$i=1;
+	//  foreach ($cartitems as $key=>$id) {
+        foreach ($products as $product){
+		?>	  	
+	  	<tr>
+	  	<!-- <td><?=$i; ?></td> -->
+	  	<td><a href="index.php?controller=Panier&task=deleteCart&remove=<?=$product['id'] ?>">Remove</a> <?=$product['title'] ?></td>
+		<td>  <?=$_SESSION['quantity']?></td>  
+	  	<td>€<?= $product['price']; ?></td>
+	  	</tr>
+		<?php 
+		$total = $total + $product['price'];
+		// $i++; 
+        }
+    // }
+		?>
+		<tr>
+		<td><strong>Total Price</strong></td>
+		<td><strong>$<?php echo $total; ?></strong></td>
+		<td><a href="#" class="btn btn-info">Checkout</a></td>
+		</tr>
+	  </table>
+	  
+	</div>
+ 
+</div>

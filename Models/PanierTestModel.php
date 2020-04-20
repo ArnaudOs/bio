@@ -1,8 +1,8 @@
 <?php
-// require_once "Model.php";
+require_once "Model.php";
 
 
-class PanierModel extends Model{
+class PanierTestModel extends Model{
 
     protected $table = "products";
     
@@ -17,7 +17,7 @@ class PanierModel extends Model{
                 '',
                 [
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                    // PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
                 ]
             );
 
@@ -33,16 +33,17 @@ class PanierModel extends Model{
         ');
         $query->execute();
 
-        return $query->fetchAll(PDO::FETCH_ASSOC);
+        return $query->fetchAll(PDO::FETCH_OBJ);
     }
 
 
     public function addingPanier($id){
        
-        $query = $this->db->prepare('SELECT*FROM products WHERE id=:id');
-        $query->execute([':id' => $id]);//on peut ne pas mettre les deux points dans le token en execute 'id'
-        $query->fetch(PDO::FETCH_ASSOC);
+$query = $this->db->prepare('SELECT*FROM products WHERE id=:id');
+$query->execute([':id' => $id]);//on peut ne pas mettre les deux points dans le token en execute 'id'
+$query->fetch(PDO::FETCH_OBJ);
     }
+
 
    
 }

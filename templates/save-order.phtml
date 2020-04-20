@@ -1,0 +1,44 @@
+<h1>Merci à vous pour votre commande</h1>
+<h3 class="address">Coordonnées</h3>
+<address>
+   
+   <p> Adresse :<?= $address ?></p>
+    <p>Téléphone :<?= $phone ?></p>
+</address>
+
+<h3 class="address">Détails de votre panier</h3>
+
+<table>
+    <thead>
+        <tr>
+        <th>Plat</th>
+        <th>Quantité</th>
+        <th>Prix</th>
+        <th>Prix Total</th>
+    
+        </tr>
+    </thead>
+
+    <tbody>
+        <?php foreach ($panier as $element) : ?>
+        <tr>
+            <td>
+                <?= $element['plat']->nom_plat ?>
+            </td>
+            <td>
+                <?= $element['quantity'] ?>
+            </td>
+            <td><?= $element['plat']->prix ?>€</td>
+            <td><?= $element['quantity'] * $element['plat']->prix ?> €</td>
+            <td>
+            </td>
+        </tr>
+    <?php endforeach ?>
+    <tr>
+        <td colspan=3 style="text-align:right">Total:</td>
+        <td><?= $total ?>€</td>
+    </tr>
+</tbody>
+
+
+</table>

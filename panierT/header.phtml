@@ -1,0 +1,74 @@
+<?php 
+require_once('../admin/libraries/Session.php');
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa|Fjalla+One|Italianno" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
+    
+   
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/flexslider.css">
+	<script src="js/jquery.flexslider-min.js"></script>
+	<script>
+		$(window).on('load', function() {
+			$('.flexslider').flexslider({
+				directionNav: true,
+				controlNav: true
+			});
+		});
+    </script>
+     <link rel="stylesheet" href="../admin/css/style.css">
+</head>
+<body>
+    <header>
+   
+        <img src="../img/logo.png" alt="logo">
+        <nav class="first">
+            <a href="../index.php">Accueil</a>
+            <a href="index.php?task=addReservation">Reservation</a>
+            <ul class="deroulant">
+                    <li class="carte"> <a href="">Carte</a></li>
+                        <ul class="submenu">
+                        <li class="menu"><a href="index.php?controller=Plats&task=indexEntreesClients">Entrées</a></li>
+                        <li class="menu"><a href="index.php?controller=Plats&task=indexPlatsClients">Plats</a></li>
+                        <li class="menu"><a href="index.php?controller=Plats&task=indexDessertsClients">Desserts</a></li>
+                        </ul>
+                </ul>
+            <a href="../index.php?controller=Panier&task=indexPanier"> Commander</a>
+            <a href="../index.php?controller=users&task=register">Inscription</a>
+            <?php if (!Session::isConnected()) : ?>
+                <a href="../index.php?controller=users&task=formLogin">Connexion</a>
+            <?php else : ?>
+                <a href="../index.php?controller=users&task=logout">Deconnexion</a>
+                <?php if ($_SESSION['user']['admin'] == 1) : ?>
+                    <a href="../index.php?controller=Users&task=index">Administration</a>
+                <?php endif ?>
+            <?php endif ?>
+        </nav>
+      
+    </header>
+    <main>
+                          <?php if (Session::hasFlashes('error')) : ?>
+  <div class="errors">
+  <?php foreach (Session::getFlashes('error') as $message) : ?>
+  <p><?= $message ?></p>
+  <?php endforeach ?>
+  </div>
+  <?php endif ?>
+
+            <?php if (Session::hasFlashes('success')) : ?>
+  <div class="success">
+  <?php foreach (Session::getFlashes('success') as $message) : ?>
+  <p><?= $message ?></p>
+  <?php endforeach ?>
+</div>
+  <?php endif ?>

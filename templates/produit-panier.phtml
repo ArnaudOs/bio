@@ -1,0 +1,24 @@
+
+
+
+<h1>Les produits</h1>
+<table class="commande">
+<?php foreach ($products as $product) : ?>
+<tr>
+    <td>
+    <h3> <?= $product->title ?> (<?= $product->price ?> €) </h3 >
+    </td>
+
+<form action="index.php?controller=PanierTest&task=addingCart" method="POST" class="formpanier">
+<td>
+    <input type="hidden" name="id" value="<?= $product->id ?>" class="formpanier">
+    <input type="number" name="quantity" id="" placeholder="quantité" required="required" min="1" size="3" class="formpanier">
+
+    <button type="submit">Ajouter au panier</button>
+</td>
+</tr> 
+</form>
+<?php endforeach ?>
+</table>
+</main>
+</body>

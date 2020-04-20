@@ -23,7 +23,7 @@ class ShopController extends Controller {
      
         // var_dump($_POST);
         $products=$this->model->showProduct();
-        $this->view('templates/boutique',['products'=>$products]);
+        $this->view('templates/boutiqueProd',['products'=>$products]);
      
     }
 
@@ -37,54 +37,54 @@ class ShopController extends Controller {
     //     $this->view('templates/test',['panier'=>$panier]);
     // }
 
-public function addToCart(){
+// public function addToCart(){
 
-    if (!isset($_SESSION['panier'])) {
-        $_SESSION['panier'] = [];
-        var_dump($_SESSION);
-    };
-    $panier = $_SESSION['panier'];
-    $this->view('templates/test',['panier'=>$panier]);
+//     if (!isset($_SESSION['panier'])) {
+//         $_SESSION['panier'] = [];
+//         var_dump($_SESSION);
+//     };
+//     $panier = $_SESSION['panier'];
+//     $this->view('templates/test',['panier'=>$panier]);
 
-        // get the product id
-    $id = isset($_GET['id']) ? $_GET['id'] : "";
-    $quantity = isset($_GET['quantity']) ? $_GET['quantity'] : 1;
-    // $page = isset($_GET['page']) ? $_GET['page'] : 1;
+//         // get the product id
+//     $id = isset($_GET['id']) ? $_GET['id'] : "";
+//     $quantity = isset($_GET['quantity']) ? $_GET['quantity'] : 1;
+//     // $page = isset($_GET['page']) ? $_GET['page'] : 1;
     
-    // make quantity a minimum of 1
-    $quantity=$quantity<=0 ? 1 : $quantity;
+//     // make quantity a minimum of 1
+//     $quantity=$quantity<=0 ? 1 : $quantity;
     
-    // add new item on array
-    $cart_item=array(
-        'quantity'=>$quantity
-    );
+//     // add new item on array
+//     $cart_item=array(
+//         'quantity'=>$quantity
+//     );
     
-    /*
-    * check if the 'cart' session array was created
-    * if it is NOT, create the 'cart' session array
-    */
-    if(!isset($_SESSION['cart'])){
-        $_SESSION['cart'] = array();
-    }
+//     /*
+//     * check if the 'cart' session array was created
+//     * if it is NOT, create the 'cart' session array
+//     */
+//     if(!isset($_SESSION['cart'])){
+//         $_SESSION['cart'] = array();
+//     }
     
-    // check if the item is in the array, if it is, do not add
-    if(array_key_exists($id, $_SESSION['cart'])){
-        // redirect to product list and tell the user it was added to cart
-        Session::addFlash('error', "Le produit existe déjà");
-        Http::redirect('index.php?controller=Shop&task=showList' . $id);
-        var_dump($_SESSION['cart']);
-    }
+//     // check if the item is in the array, if it is, do not add
+//     if(array_key_exists($id, $_SESSION['cart'])){
+//         // redirect to product list and tell the user it was added to cart
+//         Session::addFlash('error', "Le produit existe déjà");
+//         Http::redirect('index.php?controller=Shop&task=showList' . $id);
+//         var_dump($_SESSION['cart']);
+//     }
   
-    // else, add the item to the array
-    else{
-        $_SESSION['cart'][$id]=$cart_item;
+//     // else, add the item to the array
+//     else{
+//         $_SESSION['cart'][$id]=$cart_item;
     
-        // redirect to product list and tell the user it was added to cart
-        Session::addFlash('success', "Le produit a été ajouté");
-        Http::redirect('index.php?controller=Shop&task=showList');
-    }
+//         // redirect to product list and tell the user it was added to cart
+//         Session::addFlash('success', "Le produit a été ajouté");
+//         Http::redirect('index.php?controller=Shop&task=showList');
+//     }
   
-}  
+// }  
   
 
 }
