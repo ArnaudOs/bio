@@ -1,34 +1,32 @@
 <?php
+// require_once("../../admin/libraries/Session.php");
+
 class Cart
 {
-
-
-    private $productType=array();
-
     protected static $panier = [];
 
-    protected static function load()
+    public static function load()
     {
         if (isset($_SESSION['panier'])) {
             self::$panier = $_SESSION['panier'];
         }
     }
-    protected static function save()
+    public static function save()
     {
         $_SESSION['panier'] = self::$panier;
     }
-    public static function get()
+    public  function get()
     {
         self::load();
         return self::$panier;
     }
 
 
-    public function add($product, $quantity)
+    public static function add($product, $quantity)
     {
         $id = $product->id;
 
-
+        echo $id;
         self::load();
 //si le produit est déjà présent 
         if (array_key_exists($id, self::$panier)) {
@@ -41,7 +39,7 @@ class Cart
             //     'plat' => $plat,
             //     'quantity' => $quantity
             // ];
-            self::$panier[$id] = compact('plat', 'quantity');
+            self::$panier[$id] = compact('product', 'quantity');
         }
 
         self::save();

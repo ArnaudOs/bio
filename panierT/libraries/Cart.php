@@ -22,7 +22,7 @@ class Cart
     }
 
 
-    public function add($product, $quantity)
+    public static function add($product, $quantity)
     {
         $id = $product->id;
 

@@ -7,7 +7,7 @@ class AccueilController extends Controller {
     public function showIndex(){
         // $arrivees=$this->model->showAll();
         // $this->view('templates/index', ['arrivées'=>$arrivees]);
-        $this->view('templates/index');
+        $this->view('templates/accueil');
      
     }
   
