@@ -7,6 +7,7 @@ class Cart
 
     public static function load()
     {
+       
         if (isset($_SESSION['panier'])) {
             self::$panier = $_SESSION['panier'];
         }
@@ -43,6 +44,7 @@ class Cart
         }
 
         self::save();
+        // session_destroy();//aTESTER
     }
 
 

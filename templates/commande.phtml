@@ -1,0 +1,25 @@
+<div class="container">
+<h2 class="text_bio"><span>Précisez vos coordonnées pour la livraison</span></h2>
+<form action="index.php?controller=PanierTest&task=insertOrders" method="POST" class="connect">
+<label for="name">Nom</label>
+<input type="text" placeholder="nom" required="required" name="nom">
+<label for="firstname">Prenom</label>
+<input type="text" placeholder="prenom" required="required" name="prenom">
+<label for="email">Email</label>
+<input type="text" placeholder="email" required="required" name="mail">
+<label for="phone">Téléphone</label>
+<input type="text" placeholder="numéro de téléphone" required="required" name="phone">
+<label for="Adress">Adresse</label>
+<input type="text" placeholder="Adresse" required="required" name="address">
+<h3>Paiement</h3>
+<label for="livraison">Livraison gratuite à domicile (Saint-Cyr sur mer)</label>
+<input type="checkbox" rows="5" name="livraison" value="livraison">
+<label for="point">Point livraison mardi ou jeudi</label>
+<input type="checkbox" rows="5" name="livraison" value="point_livraison">
+<!-- <label for="phone">Stripe</label>
+<input type="checkbox" required="required" rows="5" name="stripe" value="stripe"> -->
+
+<button type="submit">Commandez</button>
+
+</form>
+</div>

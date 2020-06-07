@@ -17,8 +17,8 @@ class PanierTestController extends Controller{
         $products = $this->model->findProducts();
 
         // $this->view('templates/produit-panier', ['products' => $products]);
-        $this->view('panier/test', ['products' => $products]);
-
+        $this->view('templates/cartok', ['products' => $products]);
+        
         $pdo = PanierTestModel::getInstance();
     
         //2 on va chercher le plat(on a donc besoin de l'id)
@@ -40,21 +40,16 @@ class PanierTestController extends Controller{
         Http::redirect("index.php?controller=PanierTest&task=indexPanier");
         
     }
-public function addOrder(){
-    
-    $this->view('templates/add-order');
 
-}
 public function showOrder(){
-
-    $this->view('templates/save-order');
-   
+    $panier = $_SESSION['panier'];
+    $this->view('templates/order',['panier' => $panier]);
 
 }
 public function showCart(){
 
     $products = $this->model->findProducts();
-    $this->view('panier/test',['products' => $products]);
+    $this->view('templates/cartok',['products' => $products]);
    
 
 }
@@ -165,8 +160,78 @@ if ($quantity < 1) {
     die("non !");
 }
 $_SESSION['panier'][$id]['quantity'] = $quantity;
-// Http::redirect("index.php?controller=PanierTest&task=showCart");
+Http::redirect("index.php?controller=PanierTest&task=showCart");
+}
+public function showCommande(){
 
+    $this->view('templates/commande');
+    // var_dump($_SESSION['panier']);
+        // var_dump($test);
+        $panier = $_SESSION['panier'];
+//   var_dump($panier);
+        // var_dump( $panier [1]['product']->price);
+}
+
+
+public function insertOrders(){
+
+    $panier = $_SESSION['panier'];
+  
+    // $arrayProduct= array(
+     
+    //     '1'=>'art_un',
+    //     '2'=>'art_deux',
+    //     '3'=>'art_trois',
+    //     '4'=>'art_quatre',
+    //     '5'=>'art_cinq',
+    //     '6'=>'art_six',
+    //     '7'=>'art_sept',
+    //     '8'=>'art_huit',
+    //     '9'=>'art_neuf',
+    //     '10'=>'art_dix',
+    //     '11'=>'art_onze',
+    //     '12'=>'art_douze',
+    //     '13'=>'art_treize'
+
+    // );
+    // var_dump($arrayProduct);
+
+    // foreach ($panier as $id => $element) {
+    //     $plats_id = $id;
+    //     $quantity = $element['quantity'];
+
+    //     $query->execute(compact('order_id', 'plats_id', 'quantity'));
+    // }
+    //6 calculer le total du panier
+    // $total = 0;
+    // foreach ($panier as $element) {
+    //     $totalElement = $element['quantity'] * $element['plat']->prix;
+    //     $total = $total + $totalElement;
+
+    // }
+    // //même chose qu'au dessus c'est une réduction de tableau
+    // $montantTotal = array_reduce($panier, function ($acc, $element) {
+    //     $totalElement = $element['quantity'] * $element['plat']->prix;
+    //     return $acc + $totalElement;
+    // }, 0);
+
+
+    $nom = filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_SPECIAL_CHARS);
+    $prenom = filter_input(INPUT_POST, 'prenom', FILTER_SANITIZE_SPECIAL_CHARS);
+    $mail = filter_input(INPUT_POST, 'mail', FILTER_SANITIZE_SPECIAL_CHARS);
+    $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_SPECIAL_CHARS);
+    $address = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_SPECIAL_CHARS);
+    $livraison = filter_input(INPUT_POST, 'livraison', FILTER_SANITIZE_SPECIAL_CHARS);
+    if (!$phone || !$address || !$mail || !$nom ||!$prenom ||!$livraison) {
+        die("die die");
+    }
+   
+    $newUser= $prenom . " " . $nom;
+    $email= $mail;
+    $sendmail=$this->model->mailOrders($email,$newUser);
+    $orders =$this->model->insertOrder($panier, $nom, $prenom,$mail,$phone,$address,$livraison);
+   
+    // Http::redirect("index.php?controller=PanierTest&task=showOrder");
 
 }
 }
