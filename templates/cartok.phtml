@@ -21,7 +21,7 @@ $panier = $_SESSION['panier'];
                             <input type="number" name="quantity" id="" placeholder="quantité"  min="0" size="3" class="formpanier">
 
                             <button type="submit" id="add" ><strong>+</strong></button>
-                            <!-- <a href="javascript:" data-id="<?= $product->id?>" class="add"><i class="flaticon-bag" ><span>ADD TO CART</span></i></a> -->
+                     
                         </td>
                 </tr>
                
@@ -40,7 +40,7 @@ document.getElementById('add').onclick = function(){
 <table class="commande">
 <thead>
     <tr>
-    <th>Plat</th>
+    <th>Produit</th>
     <th>Quantité</th>
     <th>Prix</th>
     <th>Total</th>
@@ -59,7 +59,6 @@ document.getElementById('add').onclick = function(){
             <form action="index.php?controller=PanierTest&task=updateItem" method="post" class="der" >
                 <input type="hidden" name="id" value="<?= $element['product']->id ?>">
                 <input type="number" name="quantity" id="" placeholder="quantity" min=1 required="required" value="<?= $element['quantity'] ?>" onchange="this.form.submit()">
-                <button type="submit">Envoi</button>
             </form>    
         </td>
         <td><?= $element['product']->price ?>€</td>

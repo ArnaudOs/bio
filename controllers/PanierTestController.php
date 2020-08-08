@@ -228,9 +228,14 @@ public function insertOrders(){
    
     $newUser= $prenom . " " . $nom;
     $email= $mail;
-    $sendmail=$this->model->mailOrders($email,$newUser);
+    
+    $sendmail=$this->model->mailOrders($email,$newUser,$panier);
+    // var_dump($panier);
     $orders =$this->model->insertOrder($panier, $nom, $prenom,$mail,$phone,$address,$livraison);
-   
+
+    $this->view('templates/order', ['panier' => $panier,'nom'=>$nom,'prenom'=>$prenom,'mail'=>$mail,'address'=>$address,'phone'=>$phone, 'livraison'=>$livraison]);
+
+  
     // Http::redirect("index.php?controller=PanierTest&task=showOrder");
 
 }
