@@ -5,38 +5,7 @@
 $panier = $_SESSION['panier'];
 ;
 ?> 
-        <!-- <h2 class="text_bio"><span>Les produits<span></h2>
-      
-        <table class="commande">
-           
-            <?php foreach ($products as $product) : ?>
-                <tr>
-                    <td>
-                        <h3> <?= ucfirst($product->title) ?> <span><?= $product->price . "€" ?> </span> </h3>
-                    </td>
-
-                    <form action="index.php?controller=PanierTest&task=indexPanier" method="POST" class="formpanier">
-                        <td>
-                            <input type="hidden" name="id" value="<?= ucfirst(strtolower($product->id)) ?>" class="formpanier">
-                            <input type="number" name="quantity" id="" placeholder="quantité"  min="0" size="3" class="formpanier">
-
-                            <button type="submit" id="add" ><strong>+</strong></button>
-                     
-                        </td>
-                       
-               
-               
-                </form>
-                </tr>
-            <?php endforeach ?>
-           
-        </table> -->
-    
-<!-- <script>
-document.getElementById('add').onclick = function(){
-    return false;
-}
-</script> -->
+       
 
 <h2 class="text_bio"><span>Votre panier<span></h2>
 <table class="commande">
@@ -74,10 +43,7 @@ document.getElementById('add').onclick = function(){
 
 
 </table>
-<!-- // SELECT plats.id, plats.photo, plats.nom_plat, plats.prix, orders_plat.quantity, (plats.prix* orders_plat.quantity) as total
-FROM plats
-JOIN orders_plat ON orders_plat.plat_id=plats.id
-WHERE orders_plat.order_id=1 -->
+
 <button><a href="index.php?controller=PanierTest&task=showCommande" class="mod">commander</a></button>
 <button><a href="index.php?controller=Shop&task=showList" class="mod">continuez la commande</a></button>
 <!-- <script>

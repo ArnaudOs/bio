@@ -9,11 +9,7 @@ class PanierTestController extends Controller{
 
     public function indexPanier()
     {
-        // var_dump($_SESSION);
-        // var_dump($_POST);
-        // if($_SESSION['panier']==null){
-        //     session_start();
-        // }
+      
         $products = $this->model->findProducts();
 
         // $this->view('templates/produit-panier', ['products' => $products]);
@@ -50,7 +46,6 @@ public function showCart(){
 
     $products = $this->model->findProducts();
     $this->view('templates/cartok',['products' => $products]);
-   
 
 }
 

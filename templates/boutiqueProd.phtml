@@ -1,76 +1,46 @@
-<!-- <?php
-session_start();
-if(isset($_GET['status']) & !empty($_GET['status'])){ 
-	if($_GET['status'] == 'success'){
-	echo "<div class=\"alert alert-success\" role=\"alert\">Item Successfully Added to Cart</div>";
-	}elseif ($_GET['status'] == 'incart') {
-	echo "<div class=\"alert alert-info\" role=\"alert\">Item is Already Exists in Cart</div>";
-	}elseif ($_GET['status'] == 'failed') {
-	echo "<div class=\"alert alert-danger\" role=\"alert\">Failed to Add item, try to Add Again</div>";
-	}
-}
-// if(isset($_SESSION["cart_item"])){
-//     $total_quantity = 0;
-// 	$total_price = 0;
-// }
-?>	 -->
-<section class="ftco-section">
-    	<div class="container">
-    		<div class="row justify-content-center">
-    			<div class="col-md-10 mb-5 text-center">
-    				<ul class="product-category">
-    					<li><a href="#" class="active">All</a></li>
-    					<li><a href="#">Vegetables</a></li>
-    					<li><a href="#">Fruits</a></li>
-    					<li><a href="#">Juice</a></li>
-    					<li><a href="#">Dried</a></li>
-    				</ul>
-    			</div>
-    		</div>
-    		<div class="row">
-			<?php foreach ($products as $product) :?>
-			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/products/<?= $product['img_name']?>" alt="Colorlib Template">
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3 text-center m-auto">
-							<input type="hidden" value=<?=$product['id']?> name="product-id"/>
-							<h3><a href="#"><?=$product['title']?></a></h3>
-							<input type="number" name="qty" class="qty-product" >
-							<p class="price"><span><?=$product['price'] . "€" ?></span></p>
-							<a href="index.php?controller=Panier&task=addToCart&id=<?=$product['id'] ?>">Ajouter au panier</a>
-    						<div class="d-flex">
-    							<div class="pricing">
-		    					</div>
-	    					</div>
-    					</div>
-    				</div>
-				</div>
-			<?php endforeach ?>
+	<section id="home-section" class="hero">
+		<div class="home-slider owl-carousel">
+			<div class="slider-item" style="background-image: url(images/bg_1.jpg);">
+			</div>
+		</div>
+	</section>
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+			</div>
+			<div class="row">
+				<?php foreach ($products as $product) : ?>
+					<div class="col-md-6 col-lg-3 ftco-animate">
+						<div class="product">
+							<a href="#" class="img-prod"><img src="https://via.placeholder.com/253x300.png/09f/fff" alt="Colorlib Template">
+								<!-- <a href="#" class="img-prod"><img class="img-fluid" src="images/products/<?= $product['img_name'] ?>" alt="Colorlib Template"> -->
+								<div class="overlay"></div>
+							</a>
+							<div class="text py-3 pb-4 px-3 text-center m-auto">
+								<form action="index.php?controller=PanierTest&task=indexPanier" method="POST" class="formpanier">
+									<td>
+										<input type="hidden" name="id" value="<?= ucfirst(strtolower($product['id'])) ?>" class="formpanier">
+										<h3><a href="#"><?=$product['title']?></a></h3>
+										<p class="price"><span><?=$product['price'] . "€" ?></span></p>
+										<input type="number" name="quantity" id="" placeholder="quantité" min="0" size="3" class="formpanier">
 
-				</div>
+										<button type="submit" id="add"><strong>+</strong></button>
+									</td>
+								</form>
+								<div class="d-flex">
+									<div class="pricing">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				<?php endforeach ?>
+
+			</div>
 			<!-- <form action="index.php?controller=Panier&task=showPanier" method="post" class="addForm">
 			<button type="submit" name="commande">Commander </button>
 			</form>	 -->
-    			
-    		<div class="row mt-5">
-          <div class="col text-center">
-            <div class="block-27">
-              <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-    	</div>
-    </section>
+	</section>
 	</main>
 	<!-- <script>
 $(document).ready(function(){
@@ -87,5 +57,3 @@ $(document).ready(function(){
     });
 });
 </script> -->
-  
-   

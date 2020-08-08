@@ -10,6 +10,11 @@ class AccueilController extends Controller {
         $this->view('templates/accueil');
      
     }
+    public function showContact(){
+
+        $this->view('templates/contact');
+     
+    }
   
 
 }
