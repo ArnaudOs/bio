@@ -11,9 +11,9 @@ class PanierTestController extends Controller{
     {
       
         $products = $this->model->findProducts();
-
+        $panier = $_SESSION['panier'];
         // $this->view('templates/produit-panier', ['products' => $products]);
-        $this->view('templates/cartok', ['products' => $products]);
+        $this->view('templates/cartok', ['products' => $products,'panier' => $panier]);
         
         $pdo = PanierTestModel::getInstance();
     
@@ -33,8 +33,7 @@ class PanierTestController extends Controller{
 
         //3on construit la structure du plat au sein de panier
         Cart::add($product, $quantity);
-        Http::redirect("index.php?controller=PanierTest&task=indexPanier");
-        
+        Http::redirect("index.php?controller=PanierTest&task=showCart");
     }
 
 public function showOrder(){
@@ -45,8 +44,8 @@ public function showOrder(){
 public function showCart(){
 
     $products = $this->model->findProducts();
-    $this->view('templates/cartok',['products' => $products]);
-
+    $panier = $_SESSION['panier'];
+    $this->view('templates/cartok',['products' => $products,'panier' => $panier]);
 }
 
 public function addPanier(){
@@ -171,45 +170,6 @@ public function showCommande(){
 public function insertOrders(){
 
     $panier = $_SESSION['panier'];
-  
-    // $arrayProduct= array(
-     
-    //     '1'=>'art_un',
-    //     '2'=>'art_deux',
-    //     '3'=>'art_trois',
-    //     '4'=>'art_quatre',
-    //     '5'=>'art_cinq',
-    //     '6'=>'art_six',
-    //     '7'=>'art_sept',
-    //     '8'=>'art_huit',
-    //     '9'=>'art_neuf',
-    //     '10'=>'art_dix',
-    //     '11'=>'art_onze',
-    //     '12'=>'art_douze',
-    //     '13'=>'art_treize'
-
-    // );
-    // var_dump($arrayProduct);
-
-    // foreach ($panier as $id => $element) {
-    //     $plats_id = $id;
-    //     $quantity = $element['quantity'];
-
-    //     $query->execute(compact('order_id', 'plats_id', 'quantity'));
-    // }
-    //6 calculer le total du panier
-    // $total = 0;
-    // foreach ($panier as $element) {
-    //     $totalElement = $element['quantity'] * $element['plat']->prix;
-    //     $total = $total + $totalElement;
-
-    // }
-    // //même chose qu'au dessus c'est une réduction de tableau
-    // $montantTotal = array_reduce($panier, function ($acc, $element) {
-    //     $totalElement = $element['quantity'] * $element['plat']->prix;
-    //     return $acc + $totalElement;
-    // }, 0);
-
 
     $nom = filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_SPECIAL_CHARS);
     $prenom = filter_input(INPUT_POST, 'prenom', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -224,14 +184,12 @@ public function insertOrders(){
     $newUser= $prenom . " " . $nom;
     $email= $mail;
     
-    $sendmail=$this->model->mailOrders($email,$newUser,$panier);
+  
     // var_dump($panier);
     $orders =$this->model->insertOrder($panier, $nom, $prenom,$mail,$phone,$address,$livraison);
-
+    $sendmail=$this->model->mailOrders($email,$newUser,$panier);
     $this->view('templates/order', ['panier' => $panier,'nom'=>$nom,'prenom'=>$prenom,'mail'=>$mail,'address'=>$address,'phone'=>$phone, 'livraison'=>$livraison]);
-
-  
-    // Http::redirect("index.php?controller=PanierTest&task=showOrder");
+    $_SESSION=[];
 
 }
 }

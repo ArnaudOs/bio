@@ -154,12 +154,12 @@ class PanierTestModel extends Model{
          
             
             $tabl = "";
-           
+        
             foreach ($panier as $element) {
                 $tabl .= "<tr>";
         
                 $tabl .= "<td>"  . $element['product']->title ." </td> ";
-                $tabl.= " <td> " .  $element['quantity'] ." </td> ";;
+                $tabl.= " <td> " .  $element['quantity'] ." </td> ";
                 $tabl.=  " <td> " .  $element['product']->price . "€" . "</td> ";
                 $tabl.=  " <td> " . $element['quantity'] * $element['product']->price . "€" . "</td>";
                 $tabl .= "</tr>";

@@ -1,43 +1,15 @@
 <div class="container">
- <?php if (!isset($_SESSION['panier'])) {
-    $_SESSION['panier'] = [];
-};
-$panier = $_SESSION['panier'];
-;
+ <?php 
+//  if (!isset($_SESSION['panier'])) {
+//     $_SESSION['panier'] = [];
+//     }
+//     else{
+//     $panier = $_SESSION['panier'];
+//     // $nb= count($panier);
+//     // echo $nb;
+// }
 ?> 
-        <!-- <h2 class="text_bio"><span>Les produits<span></h2>
-      
-        <table class="commande">
-           
-            <?php foreach ($products as $product) : ?>
-                <tr>
-                    <td>
-                        <h3> <?= ucfirst($product->title) ?> <span><?= $product->price . "€" ?> </span> </h3>
-                    </td>
-
-                    <form action="index.php?controller=PanierTest&task=indexPanier" method="POST" class="formpanier">
-                        <td>
-                            <input type="hidden" name="id" value="<?= ucfirst(strtolower($product->id)) ?>" class="formpanier">
-                            <input type="number" name="quantity" id="" placeholder="quantité"  min="0" size="3" class="formpanier">
-
-                            <button type="submit" id="add" ><strong>+</strong></button>
-                     
-                        </td>
-                       
-               
-               
-                </form>
-                </tr>
-            <?php endforeach ?>
-           
-        </table> -->
-    
-<!-- <script>
-document.getElementById('add').onclick = function(){
-    return false;
-}
-</script> -->
-
+       
 <h2 class="text_bio"><span>Votre panier<span></h2>
 <table class="commande">
 <thead>
@@ -52,7 +24,7 @@ document.getElementById('add').onclick = function(){
 </thead>
 
 <tbody>
-    <?php foreach ($panier as $element) : ?>
+    <?php foreach ($panier as $element) :?>
     <tr>
         <td>
             <?= $element['product']->title ?>
@@ -85,5 +57,5 @@ document.querySelector('mod').onclick = function(){
     return false;
 }
 </script> -->
-
+</div>
 </main>

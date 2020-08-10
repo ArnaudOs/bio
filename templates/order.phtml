@@ -1,5 +1,5 @@
-
-<h1>Merci  <?php echo $prenom . " " . $nom ?>  pour votre commande</h1>
+<div class="container">
+<h2>Merci  <?php echo $prenom . " " . $nom ?>  pour votre commande</h2>
 <h3 class="address">Coordonnées</h3>
 <address>
    <p>choix livraison : <?= $livraison ?></p>
@@ -10,13 +10,11 @@
 
 <?php   $totalElement=0;
     foreach ($panier as $id => $element) {
-  $quantity = $element['quantity'];
-  echo $quantity;
-
+    $quantity = $element['quantity'];
    $totalElement += $element['quantity'] * $element['product']->price;
 
    } ?>
-   <p>Total : <?php echo $totalElement?></p>
+
 <table class="commande">
 <thead>
     <tr>
@@ -29,7 +27,11 @@
 </thead>
 
 <tbody>
-    <?php foreach ($panier as $element) : ?>
+
+    <?php 
+    
+    foreach ($panier as $element) : ?>
+    
     <tr>
         <td>
         <?= $element['product']->title ?>
@@ -42,7 +44,10 @@
 </tbody>
 
 </table>
-
+</div>
 </main>
-<?php   $_SESSION=session_destroy();
-  ?>
+
+<?php  
+$panier ="";
+$_SESSION=[];
+  ?> 

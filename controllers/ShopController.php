@@ -15,6 +15,7 @@ class ShopController extends Controller {
     public function showList(){
         
         $products=$this->model->showProduct();
+        // $panier = $_SESSION['panier'];
         $this->view('templates/boutiqueProd',['products'=>$products]);
      
     }
