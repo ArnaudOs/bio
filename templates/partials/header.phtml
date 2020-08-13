@@ -34,10 +34,7 @@ require_once('libraries/Session.php');
   </head>
   <body class="goto-here">
 	<main>
-    	<div class="container">
-    
-	    		
-    </div>
+   <header>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
 	      <a class="navbar-brand" href="index.html">Beebee Eco</a>
@@ -49,9 +46,9 @@ require_once('libraries/Session.php');
 	        <ul class="navbar-nav ml-auto">
 	          <li class="nav-item active"><a href="index.php?controller=Accueil&task=showIndex" class="nav-link">Home</a></li>
 	          <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" >Shop</a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
-              	<a class="dropdown-item" href="index.php?controller=Shop&task=showList">Nos produits</a>
+              	<a class="dropdown-item" href="index.php?controller=PanierTest&task=showList">Nos produits</a>
               	<!-- <a class="dropdown-item" href="wishlist.html">Cosmétique</a>
                 <a class="dropdown-item" href="product-single.html">Autres</a> -->
                 <a class="dropdown-item" href="index.php?controller=PanierTest&task=showCart">Cart</a>
@@ -60,19 +57,22 @@ require_once('libraries/Session.php');
             </li>
 	          <!-- <li class="nav-item"><a href="about.html" class="nav-link">A propos</a></li>
 	          <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li> -->
-              <li class="nav-item"><a href="index.php?controller=Accueil&task=showContact" class="nav-link">Contact</a></li>
+              <li class="nav-item"><a href="index.php?controller=Users&task=showContact" class="nav-link">Contact</a></li>
               <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mon compte</a>
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown04">Mon compte</a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
                 <?php if (!Session::isConnected()) : ?>
-                <a class="dropdown-item" href="index.php?controller=Shop&task=showList">Connexion</a>
-                <? else : ?>
-                <a class="dropdown-item" href="product-single.html">Deconnexion</a>
-                <?php endif ?>
-              	<a class="dropdown-item" href="wishlist.html">Checkout</a>
-                <!-- <php if ($_SESSION['user']['admin'] == 1) : ?>// -->
+               
+                <a class="dropdown-item" href="index.php?controller=Users&task=formLogin">Connexion</a>
+                <a class="dropdown-item" href="index.php?controller=Users&task=showRegister">Inscription</a>
+                <?php else : ?>
+                <a class="dropdown-item" href="index.php?controller=Users&task=logout">Deconnexion</a>
+                
+              	<!-- <a class="dropdown-item" href="wishlist.html">Checkout</a> -->
+                <?php if ($_SESSION['user']['admin'] == 1) : ?>
                 <a class="dropdown-item" href="index.php?controller=Admin&task=showAdm">Administration</a>
-                <!-- <php endif?> -->
+                <?php endif ?>
+                <?php endif ?>
                 <!-- <a class="dropdown-item" href="checkout.html">Checkout</a> -->
               </div>
             </li>
@@ -82,7 +82,8 @@ require_once('libraries/Session.php');
 	        </ul>
 	      </div>
 	    </div>
-	  </nav>
+    </nav>
+    </header>
     <!-- END nav -->
   <?php if (Session::hasFlashes('error')) : ?>
     <div class="errors">

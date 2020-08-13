@@ -7,15 +7,39 @@ class PanierTestController extends Controller{
 
     protected $modelName = 'PanierTestModel';
 
+     public function showList(){
+        if (!isset($_SESSION['panier'])) {
+            $panier = "";
+            $_SESSION['panier'] = [];
+        } else {
+            $panier = $_SESSION['panier'];
+            // $nb= count($panier);
+            // echo $nb;
+        }
+       
+        // $products=$this->model->showProduct();
+        $products = $this->model->findProducts();
+        // var_dump($products);
+        // $panier = $_SESSION['panier'];
+        // $this->view('templates/boutiqueProd',['products'=>$products]);
+        $this->view('templates/boutiqueProd', ['products' => $products,'panier' => $panier]);
+      
+     
+    }
+
+
+
     public function indexPanier()
     {
-      
-        $products = $this->model->findProducts();
-        $panier = $_SESSION['panier'];
-        // $this->view('templates/produit-panier', ['products' => $products]);
-        $this->view('templates/cartok', ['products' => $products,'panier' => $panier]);
+        // $products=$this->model->showProduct();
+        // $products = $this->model->findProducts();
+    
+        // $panier = $_SESSION['panier'];
+        // // $this->view('templates/produit-panier', ['products' => $products]);
         
-        $pdo = PanierTestModel::getInstance();
+        // $this->view('templates/boutiqueProd', ['products' => $products,'panier' => $panier]);
+        
+        // $pdo = PanierTestModel::getInstance();
     
         //2 on va chercher le plat(on a donc besoin de l'id)
         $id = filter_input(INPUT_POST, 'id');
@@ -23,17 +47,18 @@ class PanierTestController extends Controller{
         if (!$id || !$quantity ) {
             die("");
         }
-        // else {
-        //     echo "vous avez " .count($_SESSION['panier']) . " articles dans le panier";
-        // }
-        $query = $pdo->prepare('SELECT*FROM products WHERE id=:id');
-        $query->execute([':id' => $id]);//on peut ne pas mettre les deux points dans le token en execute 'id'
-        $product = $query->fetch();
+        else {
+            echo "vous avez " .count($_SESSION['panier']) . " articles dans le panier";
+        }
+        // $query = $pdo->prepare('SELECT*FROM products WHERE id=:id');
+        // $query->execute([':id' => $id]);//on peut ne pas mettre les deux points dans le token en execute 'id'
+        // $product = $query->fetch();
+        $product =$this->model->addingPanier($id);
         
 
         //3on construit la structure du plat au sein de panier
         Cart::add($product, $quantity);
-        Http::redirect("index.php?controller=PanierTest&task=showCart");
+        Http::redirect("index.php?controller=PanierTest&task=showList");
     }
 
 public function showOrder(){
@@ -154,7 +179,7 @@ if ($quantity < 1) {
     die("non !");
 }
 $_SESSION['panier'][$id]['quantity'] = $quantity;
-Http::redirect("index.php?controller=PanierTest&task=showCart");
+Http::redirect("index.php?controller=PanierTest&task=showList");
 }
 public function showCommande(){
 
@@ -189,7 +214,7 @@ public function insertOrders(){
     $orders =$this->model->insertOrder($panier, $nom, $prenom,$mail,$phone,$address,$livraison);
     $sendmail=$this->model->mailOrders($email,$newUser,$panier);
     $this->view('templates/order', ['panier' => $panier,'nom'=>$nom,'prenom'=>$prenom,'mail'=>$mail,'address'=>$address,'phone'=>$phone, 'livraison'=>$livraison]);
-    $_SESSION=[];
+    $_SESSION['panier']=[];
 
 }
 }

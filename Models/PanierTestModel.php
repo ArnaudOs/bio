@@ -30,6 +30,15 @@ class PanierTestModel extends Model{
         }
         return self::$pdo;
     }
+    
+    public function showProduct(){
+
+        $query = $this->db->prepare("SELECT * FROM `products`");
+        $query->execute();
+        return $query->fetchALL(PDO::FETCH_OBJ);
+    }
+
+
 
     public function findProducts(): array
     {
@@ -47,7 +56,7 @@ class PanierTestModel extends Model{
        
     $query = $this->db->prepare('SELECT*FROM products WHERE id=:id');
     $query->execute([':id' => $id]);//on peut ne pas mettre les deux points dans le token en execute 'id'
-    $query->fetch(PDO::FETCH_OBJ);
+    return $query->fetch(PDO::FETCH_OBJ);
     }
 
     public function insertOrder ($panier, $nom, $prenom,$mail,$phone,$address,$livraison){
@@ -204,7 +213,10 @@ class PanierTestModel extends Model{
             } else {
                 echo 'Message has been sent';
             } 
+            $panier="";
+            $_SESSION=[];
     }
+    
 
 }
 

@@ -1,0 +1,134 @@
+<?php 
+$panier="";
+ if (!isset($_SESSION['panier'])) {
+    $_SESSION['panier'] = [];
+    }
+    else{
+    $panier = $_SESSION['panier'];
+    // $nb= count($panier);
+    // echo $nb;
+}
+?>
+	<section id="home-section" class="hero">
+		<div class="home-slider owl-carousel">
+			<div class="slider-item" style="background-image: url(images/bg_1.jpg);">
+			</div>
+		</div>
+	</section>
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+			</div>
+			<div class="row">
+				<?php 
+				$i=0;
+				$i<count($products);
+				$i++;
+				foreach ($products as $product[$i]) :
+					 ?>
+					<div class="col-md-6 col-lg-3 ftco-animate">
+						<div class="product">
+							<a href="#" class="img-prod"><img src="https://via.placeholder.com/253x300.png/09f/fff" alt="Colorlib Template">
+								<!-- <a href="#" class="img-prod"><img class="img-fluid" src="images/products/<?= $product['img_name'] ?>" alt="Colorlib Template"> -->
+								<div class="overlay"></div>
+							</a>
+							<div class="text py-3 pb-4 px-3 text-center m-auto">
+								<form action="testPanier.phtml" method="POST" class="formpanier" id="formproduct">
+									<td>
+										<input type="hidden" name="id" value="<?= ucfirst(strtolower($product[$i]->id)) ?>" class="formpanier">
+										<h3><a href="#"><?=$product[$i]->title?></a></h3>
+										<p class="price"><span><?=$product[$i]->price. "€" ?></span></p>
+										<input type="number" name="quantity" id="" placeholder="quantité" min="0" size="3" class="formpanier">
+
+										<button type="submit" id="add" ><strong>+</strong></button>
+									
+									</td>
+								</form>
+								<div class="d-flex">
+									<div class="pricing">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				<?php endforeach ?>
+
+			</div>
+			<!-- <form action="index.php?controller=Panier&task=showPanier" method="post" class="addForm">
+			<button type="submit" name="commande">Commander </button>
+			</form>	 -->
+	</section>
+	<h2 class="text_bio"><span>Votre panier<span></h2>
+<table class="commande">
+<thead>
+    <tr>
+    <th>Produit</th>
+    <th>Quantité</th>
+    <th>Prix</th>
+    <th>Total</th>
+    <th>Supprimer</th>
+ 
+    </tr>
+</thead>
+
+<tbody>
+    <?php foreach ($panier as $element) :?>
+    <tr>
+        <td>
+            <?= $element['product']->title ?>
+        </td>
+        <td>
+            <form action="index.php?controller=PanierTest&task=updateItem" method="post" class="der" >
+                <input type="hidden" name="id" value="<?= $element['product']->id ?>">
+                <input type="number" name="quantity" id="" placeholder="quantity" min=1 required="required" value="<?= $element['quantity'] ?>" onchange="this.form.submit()">
+            </form>    
+        </td>
+        <td><?= $element['product']->price ?>€</td>
+        <td><?= $element['quantity'] * $element['product']->price ?> €</td>
+        <td>
+            <a href="index.php?controller=PanierTest&task=deleteItem&id=<?= $element['product']->id ?>" class="mod">supprimer</a>
+        </td>
+    </tr>
+    <?php endforeach ?>
+</tbody>
+
+
+</table>
+
+<button><a href="index.php?controller=PanierTest&task=showCommande" class="mod">commander</a></button>
+<!-- <button><a href="index.php?controller=Shop&task=showList" class="mod">continuez la commande</a></button> -->
+<script>
+// 	$('.add').addEventListener('click', function(event) {
+//   event.preventDefault();
+//   return false;
+// });
+$('#formproduct').on('submit', function(e) {
+    // Prevent form submission by the browser
+    e.preventDefault();
+
+    // Rest of the logic
+})
+
+</script>
+</div>
+	</main>
+	<!-- <script>
+$(document).ready(function(){
+    // add to cart button listener
+    $('.addForm').on('submit', function(){
+ 
+        // info is in the table / single product layout
+        var id = $(this).find('.product-id').text();
+        var quantity = $(this).find('.qty-product').val();
+ 
+        // redirect to add_to_cart.php, with parameter values to process the request
+        window.location.href = "addToCart.php?id=" + id + "&quantity=" + quantity;
+        return false;
+    });
+});
+<script>
+document.querySelector('mod').onclick = function(){
+    return false;
+}
+</script>
+</script> -->

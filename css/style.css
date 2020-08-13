@@ -108,6 +108,14 @@ font-size:20px;
   max-width: 1140px;
 
 }
+
+/*MENU ***********/
+#ftco-nav > ul > li:nth-child(2) > div > a:hover,
+#ftco-nav > ul > li:nth-child(4) > div > a:hover
+ {
+background:#82ae46;
+color:#fff;
+}
 /*Accueil****************************************/
 
 .img_olive{
@@ -182,6 +190,24 @@ color:#fff;
 /*TABLEAU cart *************************/
 .commande {
   margin:0 auto;
+  background:#ebebeb ;
+ 
+}
+.lastTd
+{
+  background:#fff;
+  color:#fff;
+}
+section.ftco-section > div > button{
+margin-left:10%;
+}
+.btnCom{
+  border:0px;
+  background:transparent;
+}
+.total  {
+  background:#82ae46;
+  color:#fff;
 }
 .commande h3 {
   font-size:1.2rem;
@@ -198,7 +224,12 @@ color:#fff;
   margin:0 auto;
 }
 .commande td {
-  padding:3px;
+  padding: 14px;
+  border:2px solid white;
+}
+/* pour contact*/
+body > main > div.row.justify-content-center > form > div > input.btn.btn-primary.py-3.px-5{
+margin-top:4%;
 }
 p {
   margin-top: 0;
