@@ -187,7 +187,12 @@ color:#fff;
   color:#fff;
   width:25px;
 }
-/*TABLEAU cart *************************/
+/*TABLEAU cart et produits*************************/
+
+.formpanier{
+  width:80%;
+  margin: 0 auto;
+}
 .commande {
   margin:0 auto;
   background:#ebebeb ;

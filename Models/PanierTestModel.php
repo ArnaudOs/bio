@@ -163,14 +163,19 @@ class PanierTestModel extends Model{
          
             
             $tabl = "";
-        
+            $total =0;
             foreach ($panier as $element) {
                 $tabl .= "<tr>";
         
                 $tabl .= "<td>"  . $element['product']->title ." </td> ";
                 $tabl.= " <td> " .  $element['quantity'] ." </td> ";
                 $tabl.=  " <td> " .  $element['product']->price . "€" . "</td> ";
-                $tabl.=  " <td> " . $element['quantity'] * $element['product']->price . "€" . "</td>";
+               " <td> " . $element['quantity'] * $element['product']->price . "€" . "</td>";
+           
+                $total+= $element['quantity'] * $element['product']->price . "€" . "</td>";
+                $tabl.= "<tr>";
+                $tabl.= "<td  colspan='1' class='total'> Total commande : <strong><?=$total ?> € </strong></td>";
+                $tabl.= "</tr>";
                 $tabl .= "</tr>";
             }
            

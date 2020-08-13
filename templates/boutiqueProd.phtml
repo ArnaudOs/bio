@@ -31,7 +31,7 @@ $total=0;
 					<div class="product">
 						<a href="#" class="img-prod"><img src="https://via.placeholder.com/253x300.png/09f/fff" alt="Colorlib Template">
 							<!-- <a href="#" class="img-prod"><img class="img-fluid" src="images/products/<?= $product['img_name'] ?>" alt="Colorlib Template"> -->
-							<div class="overlay"></div>
+							<!-- <div class="overlay"></div> -->
 						</a>
 						<div class="text py-3 pb-4 px-3 text-center m-auto">
 							<form action="index.php?controller=PanierTest&task=indexPanier" method="POST" class="formpanier" id="formproduct">
@@ -85,7 +85,7 @@ $total=0;
 					<td>
 						<form action="index.php?controller=PanierTest&task=updateItem" method="post" class="der">
 							<input type="hidden" name="id" value="<?= $element['product']->id ?>">
-							<input type="number" name="quantity" id="" placeholder="quantity" min=1 required="required" value="<?= $element['quantity'] ?>" onchange="this.form.submit()">
+							<input type="number" name="quantity"  placeholder="quantity" min=1 required="required" value="<?= $element['quantity'] ?>" onchange="this.form.submit()">
 						</form>
 					</td>
 					<td><?= $element['product']->price ?>€</td>
