@@ -1,0 +1,58 @@
+<div class="container">
+    <?php
+    //  if (!isset($_SESSION['panier'])) {
+    //     $_SESSION['panier'] = [];
+    //     }
+    //     else{
+    //     $panier = $_SESSION['panier'];
+    //     // $nb= count($panier);
+    //     // echo $nb;
+    // }
+    ?>
+
+    <h2 class="text_bio"><span>Votre panier</span></h2>
+    <table class="commande">
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Quantité</th>
+                <th>Prix</th>
+                <th>Total</th>
+                <th>Supprimer</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            <?php $total = 0; 
+          ?>
+       <!-- <?php foreach ($products as $product) : ?> -->
+                <tr>
+                    <td>
+                        <?= $product['title']?>
+                    </td>
+                    <td>
+                        <!-- <form action="index.php?controller=PanierTest&task=updateItem" method="post" class="der"> -->
+                            <!-- <input type="hidden" name="id" value="<?= $product['id']?>"> -->
+                            <input type="number" name="quantity"  placeholder="quantity" min=1 required="required" value="<?= $quantity ?>" onchange="this.form.submit()">
+                        <!-- </form> -->
+                    </td>
+                    <td><?= $product['price'] ?>€</td>
+                    <td><?= $quantity  * $product['price']?> €</td>
+                    <td>
+                        <a href="index.php?controller=PanierTest&task=deleteItem&id=<?= $product['id']?>" class="mod">supprimer</a>
+                    </td>
+                </tr>
+                <?php $total += $quantity * $product['price'] ?>
+            <!-- <?php endforeach ?> -->
+            <tr  >
+			<td  colspan="1" class="total"> Total commande : <strong><?=$total ?> € </strong></td>
+			<td colspan="4" class="lastTd"><button class="btnCom"><a href="index.php?controller=PanierTest&task=showCommande" class="btn btn-primary py-3 px-5">commander</a></button></td>
+			</tr>
+        </tbody>
+
+
+    </table>
+
+</div>
+</main>

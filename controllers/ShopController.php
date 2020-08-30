@@ -5,12 +5,15 @@ require_once "Cart.php";
 class ShopController extends Controller {
     protected $modelName = 'ShopModel';
 
-    public function showShop(){
-        $arrivees=$this->model->showAll();
-        // $this->view('templates/index', ['arrivées'=>$arrivees]);
-        $this->view('templates/boutique');
+    // public function showShop(){
+    //           $products=$this->model->showProduct();
+           
+              
+    //           $this->view('templates/cartJs', ['products' => $products]);
      
-    }
+      
+     
+    // }
 
     // public function showList(){
         

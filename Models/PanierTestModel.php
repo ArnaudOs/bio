@@ -12,30 +12,30 @@ class PanierTestModel extends Model{
 
     protected $table = 'products';
     
-    protected static $pdo;
+    // protected static $pdo;
 
-    public static function getInstance()
-    {
-        if (empty(self::$pdo)) {
-            self::$pdo = new pdo(
-                'mysql:host=localhost;dbname=beebee;charset=utf8',
-                'root',
-                '',
-                [
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
-                ]
-            );
+    // public static function getInstance()
+    // {
+    //     if (empty(self::$pdo)) {
+    //         self::$pdo = new pdo(
+    //             'mysql:host=localhost;dbname=beebee;charset=utf8',
+    //             'root',
+    //             '',
+    //             [
+    //                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    //                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
+    //             ]
+    //         );
 
-        }
-        return self::$pdo;
-    }
+    //     }
+    //     return self::$pdo;
+    // }
     
     public function showProduct(){
 
         $query = $this->db->prepare("SELECT * FROM `products`");
         $query->execute();
-        return $query->fetchALL(PDO::FETCH_OBJ);
+        return $query->fetchALL(PDO::FETCH_ASSOC);
     }
 
 
@@ -59,43 +59,65 @@ class PanierTestModel extends Model{
     return $query->fetch(PDO::FETCH_OBJ);
     }
 
-    public function insertOrder ($panier, $nom, $prenom,$mail,$phone,$address,$livraison){
-      
-     
-    //3. on insère la nouvelle commande
-        $query = $this->db->prepare('
+
+    public function test($nom, $prenom,$mail,$phone,$address,$livraison, $pay){
+        $q = $this->db->prepare("
         INSERT INTO orders_bee SET
-        nom = :nom,
-        prenom= :prenom,
-        phone = :phone,
+        nom =:nom,
+        prenom=:prenom,
+        phone =:phone,
         address=:address,
         mail=:mail,
-        livraison=:livraison
-        ');
-        $query->execute(compact('phone', 'address','nom','prenom','mail','livraison'));
+        livraison=:livraison,
+        pay_choose=:pay");
+        $q->execute(compact('phone', 'address','nom','prenom','mail','livraison','pay'));
 
-    $orders_id = $this->db->lastInsertID();
+    }
 
-
-    $query = $this->db->prepare('
-    INSERT into orders SET
-
-    orders_id=:orders_id,
-    product_id=:product_id,
-    quantity=:quantity,
-    price=:price
-    ');
- 
-        // for ($i=0; $i<count($panier); $i++){
-        //     foreach ($panier as $id => $element) {
-        //     $price = $element['product']->price;
-        //     $quantity = $element['quantity'];
-        //     $product_id = $id;
-        //     $query->execute(compact('orders_id', 'product_id', 'quantity','price'));
-        // // }
-           
-            // var_dump($element);
-       
+    // public function insertOrder ( $nom, $prenom,$mail,$phone,$address,$livraison, $pay){
+        public function insertOrder ($panier, $nom, $prenom,$mail,$phone,$address,$livraison, $pay){
+            
+    //3. on insère la nouvelle commande
+        $query = $this->db->prepare("
+        INSERT INTO orders_bee SET
+        nom =:nom,
+        prenom=:prenom,
+        phone =:phone,
+        address=:address,
+        mail=:mail,
+        livraison=:livraison,
+        pay_choose=:pay
+        ");
+    //    $query->execute([
+    //         ':nom'=>$nom,
+    //         ':prenom'=>$prenom,
+    //         ':phone'=>$phone,
+    //         ':mail'=>$mail,
+    //         ':address'=>$address,
+    //         ':livraison'=>$livraison,
+    //         ':pay'=>$pay
+    //         ]);
+        // $query->execute('phone', 'address','nom','prenom','mail','livraison','pay');
+        $query->execute(compact('phone', 'address','nom','prenom','mail','livraison','pay'));
+        // $_SESSION['panier']=[];
+         for ($i=0; $i<count($panier); $i++){
+            $orders_id = $this->db->lastInsertID();
+            $queryOrders = $this->db->prepare('
+            INSERT into orders SET
+        
+            orders_id=:orders_id,
+            product_id=:product_id,
+            quantity=:quantity,
+            price=:price
+            ');
+            foreach ($panier as $id => $element) {
+            $price = $element['product']->price;
+            $quantity = $element['quantity'];
+            $product_id = $id;
+            $queryOrders->execute(compact('orders_id', 'product_id', 'quantity','price'));
+             }
+        }     
+//             var_dump($element);
     }
  
     //5 ppour chaque produit du panier
@@ -127,7 +149,7 @@ class PanierTestModel extends Model{
     }
     th, td {
     border:1px; border-style:solid;
-    border-color:white; text-align: center; width:100px;
+    border-color:white; text-align: center; width:120px;
     } 
     td {
     font-size : 12px;
@@ -167,18 +189,17 @@ class PanierTestModel extends Model{
             foreach ($panier as $element) {
                 $tabl .= "<tr>";
         
-                $tabl .= "<td>"  . $element['product']->title ." </td> ";
-                $tabl.= " <td> " .  $element['quantity'] ." </td> ";
-                $tabl.=  " <td> " .  $element['product']->price . "€" . "</td> ";
-               " <td> " . $element['quantity'] * $element['product']->price . "€" . "</td>";
+                $tabl .= "<td>".$element['product']->title." </td> ";
+                $tabl.= "<td>".$element['quantity']."</td>";
+                $tabl.=  "<td>".$element['product']->price." €"."</td>";
            
-                $total+= $element['quantity'] * $element['product']->price . "€" . "</td>";
-                $tabl.= "<tr>";
-                $tabl.= "<td  colspan='1' class='total'> Total commande : <strong><?=$total ?> € </strong></td>";
-                $tabl.= "</tr>";
+                $total+= $element['quantity'] * $element['product']->price;
+             
                 $tabl .= "</tr>";
             }
-           
+            $tabl.= "<tr>";
+            $tabl.= "<td  colspan='1' class='total'>Total commande : <strong>" .$total . " €"  ."</strong></td>";
+            $tabl.= "</tr>";
     
 
             $tablo= str_replace("{{tablo}}", $tabl, $tabloHTML);
@@ -208,8 +229,8 @@ class PanierTestModel extends Model{
             // $mail->addAttachment('/tmp/image.jpg', 'new.jpg'); 
             // Paramétrer le format des emails en HTML ou non
     
-            $mail->Subject = 'votre commande';
-            $mail->Body = 'Bonjour ' . $newUser . ' et merci pour votre commande ' . $tablo;
+            $mail->Subject = 'votre commande<br>';
+            $mail->Body = 'Bonjour ' . $newUser . ' et merci pour votre commande<br>' . $tablo;
             // $mail->AltBody = 'Bienvenue et merci pour votre commande';
             // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
             if(!$mail->send()) {

@@ -34,16 +34,16 @@ $panier="";
 								<div class="overlay"></div>
 							</a>
 							<div class="text py-3 pb-4 px-3 text-center m-auto">
-								<form action="" method="POST" class="formpanier" id="formproduct">
-									<td>
+								<form action="index.php?controller=PanierTest&task=indexPanier" method="POST" class="formpanier" id="formproduct">
+								
 										<input type="hidden" name="id" value="<?= ucfirst(strtolower($product[$i]->id)) ?>" class="formpanier">
 										<h3><a href="#"><?=$product[$i]->title?></a></h3>
 										<p class="price"><span><?=$product[$i]->price. "€" ?></span></p>
 										<input type="number" name="quantity" id="" placeholder="quantité" min="0" size="3" class="formpanier">
 
-										<input type="submit" id="add" ><strong>+</strong>
-									
-									</td>
+										<!-- <input type="submit" id="add" ><strong>+</strong> -->
+										<button type="submit" class="add">Add</button>
+								
 								</form>
 								<div class="d-flex">
 									<div class="pricing">
@@ -107,12 +107,17 @@ $panier="";
 // });
 // $("#add").on("click",function(){
 
-// $("#add").on("click",function(e){
-// 	e.preventDefault(e);
-// window.location.replace("index.php?controller=PanierTest&task=showCart");
+$(".add").on("click",function(){
+
+
+
+});
+
+// var product =$('#formproduct').val();
+// $(product).on("click", "#add", function() {
+//   // Your update code here
+//  console.log($(this)); 
 // });
-
-
 // $(document).ready(function() {
 //     $(document).on('submit', 'formproduct', function() {
 //       // do your things

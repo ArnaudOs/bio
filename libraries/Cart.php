@@ -26,12 +26,15 @@ class Cart
     public static function add($product, $quantity)
     {
         $id = $product->id;
-
         echo $id;
         self::load();
 //si le produit est déjà présent 
+       
         if (array_key_exists($id, self::$panier)) {
-            self::$panier[$id]['quantity'] += $quantity;
+   
+            self::$panier[$id]['quantity'] = $quantity;
+         
+   
         }
 //sinon
 
@@ -41,6 +44,7 @@ class Cart
             //     'quantity' => $quantity
             // ];
             self::$panier[$id] = compact('product', 'quantity');
+      
         }
 
         self::save();

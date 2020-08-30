@@ -1,13 +1,13 @@
 <div class="container">
     <?php
-    //  if (!isset($_SESSION['panier'])) {
-    //     $_SESSION['panier'] = [];
-    //     }
-    //     else{
-    //     $panier = $_SESSION['panier'];
-    //     // $nb= count($panier);
-    //     // echo $nb;
-    // }
+  $nb= "";
+  if(isset($_SESSION['panier'])){
+    // $panier = $_SESSION['panier'];
+    $nb = count($_SESSION['panier']);
+  }
+  else{
+    $nb = 0;
+  }
     ?>
 
     <h2 class="text_bio"><span>Votre panier</span></h2>
@@ -24,7 +24,9 @@
         </thead>
 
         <tbody>
-            <?php $total = 0; ?>
+            <?php $total = 0; 
+       
+          ?>
             <?php foreach ($panier as $element) : ?>
                 <tr>
                     <td>
@@ -33,7 +35,8 @@
                     <td>
                         <form action="index.php?controller=PanierTest&task=updateItem" method="post" class="der">
                             <input type="hidden" name="id" value="<?= $element['product']->id ?>">
-                            <input type="number" name="quantity"  placeholder="quantity" min=1 required="required" value="<?= $element['quantity'] ?>" onchange="this.form.submit()">
+                            <input type="number" name="qty"  placeholder="quantity" min=0 required="required" value="<?= $element['quantity']?>" onchange="this.form.submit()">
+                            <input type="hidden" name="total" value="<?= $total ?>">
                         </form>
                     </td>
                     <td><?= $element['product']->price ?>€</td>
@@ -42,11 +45,12 @@
                         <a href="index.php?controller=PanierTest&task=deleteItem&id=<?= $element['product']->id ?>" class="mod">supprimer</a>
                     </td>
                 </tr>
+        
                 <?php $total += $element['quantity'] * $element['product']->price ?>
             <?php endforeach ?>
             <tr  >
 			<td  colspan="1" class="total"> Total commande : <strong><?=$total ?> € </strong></td>
-			<td colspan="4"><button><a href="index.php?controller=PanierTest&task=showCommande" class="mod tot">commander</a></button></td>
+			<td colspan="4" class="lastTd"><button class="btnCom"><a href="index.php?controller=PanierTest&task=showCommande" class="btn btn-primary py-3 px-5">commander</a></button></td>
 			</tr>
         </tbody>
 
@@ -55,3 +59,19 @@
 
 </div>
 </main>
+<script>
+  let cart = $("#ftco-nav>ul>li.nav-item.cta.cta-colored>a");
+  test =  "<?php echo $nb?>";
+
+
+  if(test==null){
+    cart.addClass('icon-shopping_cart');
+    cart[0].innerText='[0]';
+  }
+  else{
+    cart.addClass('icon-shopping_cart');
+    cart[0].innerText='['+ test +']' ;
+  }
+
+
+</script>

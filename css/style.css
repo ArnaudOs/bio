@@ -189,6 +189,22 @@ color:#fff;
 }
 /*TABLEAU cart et produits*************************/
 
+
+/* cart a voir*/
+
+.show-cart li {
+  display: flex;
+}
+.card {
+  margin-bottom: 20px;
+}
+.card-img-top {
+  width: 200px;
+  height: 200px;
+  align-self: center;
+}
+
+/***/
 .formpanier{
   width:80%;
   margin: 0 auto;

@@ -1,0 +1,215 @@
+<?php 
+
+// $panier="";
+//  if (!isset($_SESSION['panier'])) {
+// 	$_SESSION['panier'] = [];
+// 	$nb= count($_POST);
+// 	echo '--------->' . $nb;
+//     }
+//     else{
+//     $panier = $_SESSION['panier'];
+//     $nb= count($panier);
+ 
+// }
+// $nb= "";
+// if(!empty($_SESSION['panier'])){
+// 	$panier = $_SESSION['panier'];
+// 	$nb= count($panier);
+// 	echo '--------->' . $nb;
+// } else {
+// 	$nb = 0;
+// }
+if(!empty($_SESSION["panier"])){
+	$count = count($_SESSION["panier"]);
+} else {
+	$count = 0;
+}
+?>
+	<section id="home-section" class="hero">
+		<div class="home-slider owl-carousel">
+			<div class="slider-item" style="background-image: url(images/bg_1.jpg);">
+			</div>
+		</div>
+	</section>
+ <!-- <a style="float: right;" class="btn btn-primary text-right">  Cart <i class="fa fa-shopping-cart" aria-hidden="true"></i> <span class="badge badge-light" id="cart-count"><?php print $count; ?></span></a> -->
+
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+			<div id="para"></div>
+			</div>
+			<div class="row">
+			<?php foreach ($products as $product) :?>
+			<div class="col-md-6 col-lg-3 ftco-animate">
+    				<div class="product">
+						<a href="#" class="img-prod"><img  src="https://via.placeholder.com/253x300.png/09f/fff" alt="Colorlib Template">
+						<!-- <a href="#" class="img-prod"><img class="img-fluid" src="images/products/<?= $product['img_name']?>" alt="Colorlib Template"> -->
+    						<div class="overlay"></div>
+    					</a>
+    					<div class="text py-3 pb-4 px-3 text-center m-auto">
+						<!-- <form action="index.php?controller=PanierTest&task=indexPanier" method="POST" class="formpanier" id="formproduct"> -->
+							<input type="hidden" value=<?=$product['id']?> name="id" class="iddiv"/>
+							<h3><a href="#" name="name"><?=$product['title']?></a></h3>
+							<!-- <input type="number" name="qty" class="qty-product" > -->
+							<p class="price"><span><?=$product['price'] . "€" ?></span></p>
+							<input type="number"  id="qty-<?php echo $product['id']; ?>" class="formpanier"/>
+						
+							<button  class="add" data-name="<?= $product['title'] ?>" data-price="<?= $product['price'] ?>"  data-id="<?=$product['id'] ?>"  >Ajouter</button>
+						<!-- </form>	 -->
+							<div class="d-flex">
+    							<div class="pricing">
+		    					</div>
+	    					</div>
+    					</div>
+    				</div>
+				</div>
+			
+			<?php endforeach ?>
+	
+			</div>
+			<!-- <form action="index.php?controller=Panier&task=showPanier" method="post" class="addForm">
+			<button type="submit" name="commande">Commander </button>
+			</form>	 -->
+	</section>
+
+
+</tbody>
+
+
+</div>
+	</main>
+	<script>
+// 	$('.add').addEventListener('click', function(event) {
+//   event.preventDefault();
+//   return false;
+// });#add
+// $('#add').on('click',function(){
+//     // Prevent form submission by the browser
+// console.log('test');
+// alert('test');
+//     // Rest of the logic
+// })
+// var product =$('.iddiv').val();
+ 
+// $(product).on("click", ".add", function() {
+//     // Your update code here
+//     var name = $(this).data('name');
+//     console.log(name);
+//     var price = Number($(this).data('price'));
+//     console.log(price);
+// });
+// $('qty').each(function(index, elem) {
+// // Then use the parameter:
+
+// var valu = $(elem).val();
+// console.log(valu);
+// });
+// function testId(id) { 
+//   window.location.href = "index.php?controller=PanierTest&task=indexPanier?id=" + id; 
+// }
+
+// $(".add").on("click",function(){
+//     var name = $(this).data('name');
+//     console.log(name);
+//     var price = Number($(this).data('price'));
+// 	console.log(price);
+// 	var idProd = $(this).data('id');
+// 	console.log(idProd);
+// 	$.post( "index.php?controller=PanierTest&task=indexPanier", $("#formproduct" ).serialize() );
+
+// });
+
+// $(document).ready(function () {
+//     $('#formproduct').on('submit', function(e) {
+//         e.preventDefault();
+//         $.ajax({
+// 			type: "POST",
+//             url : $(this).attr('index.php?controller=PanierTest&task=indexPanier'),
+// 			data:{id:data-id, quantity:1},
+// 	        dataType:'json',  
+//             // data: $(this).serialize(),
+//             success: function (data) {
+// 				console.log(data);
+//                 $("#para").html(data);
+//             },
+//             error: function (jXHR, textStatus, errorThrown) {
+//                 alert(errorThrown);
+//             }
+//         });
+// 	});
+	
+// 	$(document).ready(function () {
+		
+//     $('#formproduct').on('.add', function(e) {
+// 		console.log('testttt');
+//         e.preventDefault();
+//         $.ajax({
+//             url : "index.php?controller=PanierTest&task=indexPanier",
+//             type: "POST",
+//             data: $(this).serialize(),
+//             success: function (data) {
+//                 $("#form_output").html(data);
+//             },
+//             error: function (jXHR, textStatus, errorThrown) {
+//                 alert(errorThrown);
+//             }
+//         });
+//     });
+// });
+ let cartOk = $("#ftco-nav>ul>li.nav-item.cta.cta-colored>a");
+var numb=0;
+// var cartIcon=jQuery('#cart-count').hide();
+$('.add').click(function() {
+
+	var id= $(this).data('id');
+	var name= $(this).data('name');
+	// var qty = $('.qty')
+	var quantity = jQuery('#qty-'+id).val();
+
+	// var qty = $(this).data('quantity');
+	// console.log(quantity);
+    // var price = Number($(this).data('price'));
+    $.ajax({
+        url: 'index.php?controller=PanierTest&task=indexPanier',
+        type: 'POST',
+		data:{id:id, quantity:quantity, name:name},
+		// data: $(this).serialize(),
+		// data:{id:id},
+			success: function (data) {
+				
+				// console.log(test.length);
+				numb= parseInt(numb)+ parseInt(cartOk.length);
+				console.log(numb);
+            	jQuery("#para").html('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong></strong> Vous avez ajouté <strong>'+quantity + " " + name+'</strong> à votre panier!</div>');
+				
+				if(numb==null){
+					cartOk.addClass('icon-shopping_cart');
+					cartOk[0].innerText='[0]';
+				}
+				else{
+					cartOk.addClass('icon-shopping_cart');
+					cartOk[0].innerText='['+ numb +']' ;
+				}
+		
+				// $('#para').append("produit ajouté" + name);
+    },
+    error: function (errorMessage) {
+            $('#para').append('Error' + errorMessage);
+    }
+	});
+
+});
+
+
+
+
+
+
+ 
+
+
+// $('.product').each(function(index, value) {
+//   console.log(`div${index}: ${this.id}`);
+// });
+
+</script>
