@@ -9,7 +9,7 @@ const DB_PASSWORD = "Basebeebee270*";
 const DB_NAME = "beebee";
 
 
-require_once("Controllers/Controller.php");
+require_once("controllers/Controller.php");
 require_once 'libraries/Request.php';
 require_once 'libraries/Http.php';
 require_once 'libraries/Session.php';

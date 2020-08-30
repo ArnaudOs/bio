@@ -11,7 +11,7 @@ if (!$controllerName) {
 $controllerName .= "Controller";
 
 require_once "configuration.php";
-require_once "Controllers/$controllerName.php";
+require_once "controllers/$controllerName.php";
 
 $controller = new $controllerName();
 

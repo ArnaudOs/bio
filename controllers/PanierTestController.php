@@ -1,5 +1,5 @@
 <?php
-require_once "controller.php";
+require_once "Controller.php";
 require_once "libraries/Cart.php";
 
 class PanierTestController extends Controller{
