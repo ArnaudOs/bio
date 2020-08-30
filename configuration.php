@@ -3,9 +3,9 @@
 
 const ROOT_PATH = __DIR__ . "../";
 
-const DB_HOST = "localhost";
-const DB_USER = "root";
-const DB_PASSWORD = "";
+const DB_HOST = "db5000849816.hosting-data.io";
+const DB_USER = "dbu976781";
+const DB_PASSWORD = "Basebeebee270*";
 const DB_NAME = "beebee";
 
 
