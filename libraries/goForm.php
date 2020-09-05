@@ -13,7 +13,7 @@
 
     function insOrder($panier, $nom, $prenom, $mail, $phone, $address, $livraison, $pay)
     {
-        $db = new PDO("mysql:host=localhost;dbname=beebee;charset=utf8", "root", "", [
+        $db = new PDO("mysql:host=db5000849816.hosting-data.io;dbname=dbs748890;charset=utf8", "dbu976781","Basebeebee270*", [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         ]);
 
