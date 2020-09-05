@@ -1,13 +1,13 @@
-<?php var_dump($panier);
-var_dump($_SESSION['panier']);
+<?php 
 ?>
 <div class="container">
 <h2 class="text_bio"><span>Merci  <?php echo $prenom . " " . $nom ?>  pour votre commande</span></h2>
 <h3 class="address">Coordonnées</h3>
 <address>
    <p>choix livraison : <?= $livraison ?></p>
-   <p> Adresse :<?= $address ?></p>
-    <p>Téléphone :<?= $phone ?></p>
+   <p> Adresse : <?= $address ?></p>
+    <p>Téléphone : <?= $phone ?></p>
+    <p>Paiement : <?= $pay ?></p>
 </address>
 <h2 class="text_bio"><span>Votre panier<span></h2>
 
@@ -42,9 +42,15 @@ var_dump($_SESSION['panier']);
         <td><?= $element['quantity'] ?></td>
         <td><?= $element['product']->price ?>€</td>
         <td><?= $element['quantity'] * $element['product']->price ?> €</td>
+    
     </tr>
     <?php endforeach ?>
-
+    <tr>
+    <td colspan="1" class="total">Total commande : <?=$totalElement ?></td>
+    <td colspan="3" class="lastTd"></td>
+    </tr>
+  
+   
 </tbody>
 
 </table>

@@ -1,77 +1,75 @@
 <div class="container">
-    <?php
-  $nb= "";
-  if(isset($_SESSION['panier'])){
+  <?php
+  $nb = "";
+  if (isset($_SESSION['panier'])) {
     // $panier = $_SESSION['panier'];
     $nb = count($_SESSION['panier']);
-  }
-  else{
+  } else {
     $nb = 0;
   }
-    ?>
+  ?>
 
-    <h2 class="text_bio"><span>Votre panier</span></h2>
-    <table class="commande">
-        <thead>
-            <tr>
-                <th>Produit</th>
-                <th>Quantité</th>
-                <th>Prix</th>
-                <th>Total</th>
-                <th>Supprimer</th>
+  <h2 class="text_bio"><span>Votre panier</span></h2>
+  <table class="commande">
+    <thead>
+      <tr>
+        <th>Produit</th>
+        <th>Quantité</th>
+        <th>Prix</th>
+        <th>Total</th>
+        <th>Supprimer</th>
 
-            </tr>
-        </thead>
+      </tr>
+    </thead>
 
-        <tbody>
-            <?php $total = 0; 
-       
-          ?>
-            <?php foreach ($panier as $element) : ?>
-                <tr>
-                    <td>
-                        <?= $element['product']->title ?>
-                    </td>
-                    <td>
-                        <form action="index.php?controller=PanierTest&task=updateItem" method="post" class="der">
-                            <input type="hidden" name="id" value="<?= $element['product']->id ?>">
-                            <input type="number" name="qty"  placeholder="quantity" min=0 required="required" value="<?= $element['quantity']?>" onchange="this.form.submit()">
-                            <input type="hidden" name="total" value="<?= $total ?>">
-                        </form>
-                    </td>
-                    <td><?= $element['product']->price ?>€</td>
-                    <td><?= $element['quantity'] * $element['product']->price ?> €</td>
-                    <td>
-                        <a href="index.php?controller=PanierTest&task=deleteItem&id=<?= $element['product']->id ?>" class="mod">supprimer</a>
-                    </td>
-                </tr>
-        
-                <?php $total += $element['quantity'] * $element['product']->price ?>
-            <?php endforeach ?>
-            <tr  >
-			<td  colspan="1" class="total"> Total commande : <strong><?=$total ?> € </strong></td>
-			<td colspan="4" class="lastTd"><button class="btnCom"><a href="index.php?controller=PanierTest&task=showCommande" class="btn btn-primary py-3 px-5">commander</a></button></td>
-			</tr>
-        </tbody>
+    <tbody>
+      <?php $total = 0;
 
+      ?>
+      <?php foreach ($panier as $element) : ?>
+        <tr>
+          <td>
+            <?= $element['product']->title ?>
+          </td>
+          <td>
+            <form action="index.php?controller=PanierTest&task=updateItem" method="post" class="der">
+              <input type="hidden" name="id" value="<?= $element['product']->id ?>">
+              <input type="number" name="qty" placeholder="quantity" min=0 required="required" value="<?= $element['quantity'] ?>" onchange="this.form.submit()">
 
-    </table>
+            </form>
+          </td>
+          <td><?= $element['product']->price ?>€</td>
+          <td><?= $element['quantity'] * $element['product']->price ?> €</td>
+          <td>
+            <a href="index.php?controller=PanierTest&task=deleteItem&id=<?= $element['product']->id ?>" class="mod">supprimer</a>
+          </td>
+        </tr>
+
+        <?php $total += $element['quantity'] * $element['product']->price ?>
+
+      <?php endforeach ?>
+
+      <tr>
+        <form>
+          <td colspan="1" class="total" name="total"> Total commande : <strong><?= $total ?> € </strong></td>
+        </form>
+        <td colspan="4" class="lastTd"><button class="btnCom"><a href="index.php?controller=PanierTest&task=showCommande" class="btn btn-primary py-3 px-5">commander</a></button></td>
+      </tr>
+    </tbody>
+  </table>
 
 </div>
 </main>
 <script>
   let cart = $("#ftco-nav>ul>li.nav-item.cta.cta-colored>a");
-  test =  "<?php echo $nb?>";
+  test = "<?php echo $nb ?>";
 
 
-  if(test==null){
+  if (test == null) {
     cart.addClass('icon-shopping_cart');
-    cart[0].innerText='[0]';
-  }
-  else{
+    cart[0].innerText = '[0]';
+  } else {
     cart.addClass('icon-shopping_cart');
-    cart[0].innerText='['+ test +']' ;
+    cart[0].innerText = '[' + test + ']';
   }
-
-
 </script>

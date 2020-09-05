@@ -248,6 +248,23 @@ margin-left:10%;
   padding: 14px;
   border:2px solid white;
 }
+
+/* form order*/
+.order {
+margin:0 auto;
+  width:85%;
+}
+ .order input {
+  margin: 0 5% 2% 0;
+  text-align: left;
+}
+.order label {
+  padding: 0 2% 2% 0;
+  text-align: left;
+}
+.order h3{
+  color:#82ae46;
+}
 /* pour contact*/
 body > main > div.row.justify-content-center > form > div > input.btn.btn-primary.py-3.px-5{
 margin-top:4%;

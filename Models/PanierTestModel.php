@@ -209,18 +209,17 @@ class PanierTestModel extends Model{
             // $mail->isSMTP(); // Paramétrer le Mailer pour utiliser SMTP 
             $mail->Host = 'smtp.ionos.fr'; // Spécifier le serveur SMTP
             $mail->SMTPAuth = true; // Activer authentication SMTP
-            // $mail->Username = 'contact@beebeelogis.fr'; // Votre adresse email d'envoi
-            // $mail->Password = 'Admincontact83*!'; // Le mot de passe de cette adresse email
-            $mail->Username = 'contact@webdevsolution.fr'; // Votre adresse email d'envoi
-            $mail->Password = 'Adminmaster**!27!'; // Le mot de passe de cette adresse email
+            $mail->Username = 'contact@beebeelogis.fr'; // Votre adresse email d'envoi
+            $mail->Password = 'Monmailcontact83**'; // Le mot de passe de cette adresse email
+            // $mail->Username = 'contact@webdevsolution.fr'; // Votre adresse email d'envoi
+            // $mail->Password = 'Adminmaster**!27!'; // Le mot de passe de cette adresse email
           
             $mail->SMTPSecure = 'tls'; // Accepter SSL
             $mail->Port = 587;
             
     
             $mail->setFrom($email, $newUser); // Personnaliser l'envoyeur
-            // $mail->addAddress('contact@beebeelogis.fr', 'contact'); // Ajouter le destinataire
-            $mail->addAddress('contact@webdevsolution.fr', 'contact'); // Ajouter le destinataire
+            $mail->addAddress('contact@beebeelogis.fr', 'contact'); // Ajouter le destinataire
             $mail->addReplyTo($email, 'Information'); // L'adresse de réponse
             $mail->addCC('beebeelogis@gmail.com');
             // $mail->addBCC('bcc@example.com');

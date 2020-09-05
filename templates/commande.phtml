@@ -1,10 +1,7 @@
 
-<? 
-var_dump($_SESSION['panier']);
-?>
 <div class="container">
 <h2 class="text_bio"><span>Précisez vos coordonnées pour la livraison</span></h2>
-<form action="index.php?controller=PanierTest&task=loadOrders" method="POST" class="connect">
+<form action="index.php?controller=PanierTest&task=loadOrders" method="POST" class="order">
 <label for="name">Nom</label>
 <input type="text" placeholder="nom" required="required" name="nom">
 <label for="firstname">Prenom</label>
@@ -27,12 +24,12 @@ var_dump($_SESSION['panier']);
 <label for="cb">CB en ligne</label>
 <input type="radio" rows="5" name="pay" value="2">
 
-<h3>Total</h3>
-<input type="int" rows="5" name="paylivraison" value="<?= $total?>">
+<!-- <h3>Total</h3>
+<input type="int" rows="5" name="paylivraison" value="<?= $total?>"> -->
 <!-- <label for="phone">Stripe</label>
 <input type="checkbox" required="required" rows="5" name="stripe" value="stripe"> -->
 
-<button type="submit">Commandez</button>
+<button type="submit" class="btn btn-primary py-3 px-5">Commandez</button>
 
 </form>
 </div>
