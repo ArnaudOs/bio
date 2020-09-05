@@ -206,7 +206,7 @@ class PanierTestModel extends Model{
             $mail= new PHPmailer();
             $mail->CharSet = "UTF-8";
             $mail->isHTML(true);
-            // $mail->isSMTP(); // Paramétrer le Mailer pour utiliser SMTP 
+            $mail->isSMTP(); // Paramétrer le Mailer pour utiliser SMTP 
             $mail->Host = 'smtp.ionos.fr'; // Spécifier le serveur SMTP
             $mail->SMTPAuth = true; // Activer authentication SMTP
             $mail->Username = 'contact@beebeelogis.fr'; // Votre adresse email d'envoi
@@ -236,7 +236,7 @@ class PanierTestModel extends Model{
                 echo 'Message non envoyé';
                 echo 'Mailer Error: ' . $mail->ErrorInfo;
             } else {
-                echo 'Votre commande a été envoée a Beebee';
+                echo '<p> Votre commande a été envoyée a Beebee </p>';
             } 
             $panier="";
             $_SESSION=[];
