@@ -49,6 +49,6 @@
         }
     }
 
-
+    insOrder($panier, $nom, $prenom, $mail, $phone, $address, $livraison, $pay)
 
 ?>

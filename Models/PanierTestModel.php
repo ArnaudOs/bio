@@ -233,10 +233,10 @@ class PanierTestModel extends Model{
             // $mail->AltBody = 'Bienvenue et merci pour votre commande';
             // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
             if(!$mail->send()) {
-                echo 'Message could not be sent.';
+                echo 'Message non envoyé';
                 echo 'Mailer Error: ' . $mail->ErrorInfo;
             } else {
-                echo 'Message has been sent';
+                echo 'Votre commande a été envoée a Beebee';
             } 
             $panier="";
             $_SESSION=[];
