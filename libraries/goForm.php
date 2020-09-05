@@ -1,4 +1,5 @@
 <?php
+// require('Models/model.php');
     // require('Session.php');
     // require('Http.php');
     // $panier=$_SESSION['panier'];
@@ -16,7 +17,7 @@
         $db = new PDO("mysql:host=localhost;dbname=beebee;charset=utf8", "root", "", [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         ]);
-
+    
         //3. on insère la nouvelle commande
         $query = $db->prepare("
                         INSERT INTO orders_bee SET
@@ -58,7 +59,7 @@
             $queryO->execute(compact('orders_id', 'product_id', 'quantity', 'price'));
         }
     }
-//  insertOrder($panier, $nom, $prenom,$mail,$phone,$address,$livraison, $pay);
+ insOrder($panier, $nom, $prenom,$mail,$phone,$address,$livraison, $pay);
 //   $_SESSION['panier']=[];
 //  Http::redirect('../index.php?controller=PanierTest&task=showOrder');
 
