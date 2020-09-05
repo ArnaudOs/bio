@@ -194,7 +194,7 @@ class PanierTestController extends Controller
 
     public function loadOrders()
     {
-        include('libraries/goForm.php');
+        
         $panier = $_SESSION['panier'];
 
         $nom = filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -214,7 +214,7 @@ class PanierTestController extends Controller
 
         $this->view('templates/order', ['panier' => $panier, 'nom' => $nom, 'prenom' => $prenom, 'mail' => $mail, 'address' => $address, 'phone' => $phone, 'livraison' => $livraison, 'pay' => $pay]);
         
-        insOrder($panier, $nom, $prenom, $mail, $phone, $address, $livraison, $pay);
+        include_once("libraries/goForm.php");
         // $this->model->insertOrder($panier, $nom, $prenom,$mail,$phone,$address,$livraison,$pay);
 
         $this->model->mailOrders($email, $newUser, $panier, $pay);

@@ -1,15 +1,5 @@
 <?php
-    // require('Session.php');
-    // require('Http.php');
-    // $panier=$_SESSION['panier'];
-
-    // $nom = filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_SPECIAL_CHARS);
-    // $prenom = filter_input(INPUT_POST, 'prenom', FILTER_SANITIZE_SPECIAL_CHARS);
-    // $mail = filter_input(INPUT_POST, 'mail', FILTER_SANITIZE_SPECIAL_CHARS);
-    // $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_SPECIAL_CHARS);
-    // $address = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_SPECIAL_CHARS);
-    // $livraison = filter_input(INPUT_POST, 'livraison', FILTER_SANITIZE_SPECIAL_CHARS);
-    // $pay = filter_input(INPUT_POST, 'pay');
+  
 
     function insOrder($panier, $nom, $prenom, $mail, $phone, $address, $livraison, $pay)
     {
@@ -58,9 +48,7 @@
             $queryO->execute(compact('orders_id', 'product_id', 'quantity', 'price'));
         }
     }
-//  insertOrder($panier, $nom, $prenom,$mail,$phone,$address,$livraison, $pay);
-//   $_SESSION['panier']=[];
-//  Http::redirect('../index.php?controller=PanierTest&task=showOrder');
+
 
 
 ?>
