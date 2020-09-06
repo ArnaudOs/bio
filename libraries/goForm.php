@@ -167,7 +167,7 @@ width:130px;
             echo 'Message non envoyé';
             echo 'Mailer Error: ' . $mail->ErrorInfo;
         } else {
-            Session::addFlash('success','<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong></strong>Votre commande a été envoyée a Beebee</strong> à votre panier!</div>');
+            Session::addFlash('success','<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong></strong>Votre commande a été envoyée a Beebee</strong></div>');
         } 
         // $panier="";
         // $_SESSION=[];
