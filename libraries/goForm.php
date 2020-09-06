@@ -53,6 +53,7 @@
 
     insOrder($panier, $nom, $prenom, $mail, $phone, $address, $livraison, $pay);
 
+
    function loadMailOrders($email,$newUser, $panier){
         $tabloHTML = "
 <html>
@@ -158,19 +159,21 @@ width:130px;
         // $mail->addAttachment('/tmp/image.jpg', 'new.jpg'); 
         // Paramétrer le format des emails en HTML ou non
 
-        $mail->Subject = 'votre commande<br>';
-        $mail->Body = 'Bonjour ' . $newUser . ' et merci pour votre commande' . $tablo . '<br>';
+        $mail->Subject = 'votre commande';
+        $mail->Body = 'Bonjour ' . $newUser . ' et merci pour votre commande' . $tablo;
         // $mail->AltBody = 'Bienvenue et merci pour votre commande';
         // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
         if(!$mail->send()) {
             echo 'Message non envoyé';
             echo 'Mailer Error: ' . $mail->ErrorInfo;
         } else {
-            Session::addFlash('success'," Votre commande a été envoyée a Beebee");
+            Session::addFlash('success','<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong></strong>Votre commande a été envoyée a Beebee</strong> à votre panier!</div>');
         } 
         // $panier="";
         // $_SESSION=[];
 }
+$newUser = $prenom . " " . $nom;
+$email = $mail;
 loadMailOrders($email,$newUser, $panier)
 
 ?>

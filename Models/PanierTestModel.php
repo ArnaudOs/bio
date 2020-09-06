@@ -237,7 +237,6 @@ class PanierTestModel extends Model{
                 echo 'Mailer Error: ' . $mail->ErrorInfo;
             } else {
                 Session::addFlash('success',' Votre commande a été envoyée a Beebee ');
-              
             } 
             // $panier="";
             // $_SESSION=[];
