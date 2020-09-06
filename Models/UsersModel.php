@@ -52,7 +52,7 @@ class UsersModel extends Model
         // $mail->Username = 'contact@beebeelogis.fr'; // Votre adresse email d'envoi
         // $mail->Password = 'Admincontact83*!'; // Le mot de passe de cette adresse email
         $mail->Username = 'contact@beebeelogis.fr'; // Votre adresse email d'envoi
-        $mail->Password = 'Magalimail270*'; // Le mot de passe de cette adresse email
+        $mail->Password = 'Monmailcontact83**'; // Le mot de passe de cette adresse email
     
         $mail->SMTPSecure = 'tls'; // Accepter SSL
         $mail->Port = 587;

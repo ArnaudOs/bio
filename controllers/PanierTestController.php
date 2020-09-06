@@ -217,7 +217,7 @@ class PanierTestController extends Controller
         include_once("libraries/goForm.php");
         // $this->model->insertOrder($panier, $nom, $prenom,$mail,$phone,$address,$livraison,$pay);
 
-        $this->model->mailOrders($email, $newUser, $panier, $pay);
+        // $this->model->mailOrders($email, $newUser, $panier, $pay);
         $_SESSION['panier'] = [];
     }
 }
