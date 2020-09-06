@@ -77,7 +77,7 @@ class UsersModel extends Model
             echo 'Message could not be sent.';
             echo 'Mailer Error: ' . $mail->ErrorInfo;
         } else {
-            echo 'Message has been sent';
+            Session::addFlash('success',' Votre message a été envoyée a Beebee ');
         } 
 
     }

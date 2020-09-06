@@ -205,7 +205,7 @@ class PanierTestModel extends Model{
             $tablo= str_replace("{{tablo}}", $tabl, $tabloHTML);
             $mail= new PHPmailer();
             $mail->CharSet = "UTF-8";
-            $mail->isHTML(true);
+            // $mail->isHTML(true);
             $mail->isSMTP(); // Paramétrer le Mailer pour utiliser SMTP 
             $mail->Host = 'smtp.ionos.fr'; // Spécifier le serveur SMTP
             $mail->SMTPAuth = true; // Activer authentication SMTP

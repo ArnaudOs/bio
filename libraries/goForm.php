@@ -1,5 +1,8 @@
 <?php
-  
+    require('Session.php');
+    require_once('../vendor/autoload.php');
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
 
     function insOrder($panier, $nom, $prenom, $mail, $phone, $address, $livraison, $pay)
     {
@@ -133,7 +136,7 @@ width:130px;
         $tablo= str_replace("{{tablo}}", $tabl, $tabloHTML);
         $mail= new PHPmailer();
         $mail->CharSet = "UTF-8";
-        $mail->isHTML(true);
+        // $mail->isHTML(true);
         $mail->isSMTP(); // Paramétrer le Mailer pour utiliser SMTP 
         $mail->Host = 'smtp.ionos.fr'; // Spécifier le serveur SMTP
         $mail->SMTPAuth = true; // Activer authentication SMTP
