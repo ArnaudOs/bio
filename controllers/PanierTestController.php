@@ -213,9 +213,9 @@ class PanierTestController extends Controller
         $email = $mail;
 
         $this->view('templates/order', ['panier' => $panier, 'nom' => $nom, 'prenom' => $prenom, 'mail' => $mail, 'address' => $address, 'phone' => $phone, 'livraison' => $livraison, 'pay' => $pay]);
-        
+        Session::addFlash('success', 'Votre commande a été envoyée a Beebee');
         include_once("libraries/goForm.php");
-        Session::addFlash('success',' Votre commande a été envoyée a Beebee ');
+      
         // $this->model->insertOrder($panier, $nom, $prenom,$mail,$phone,$address,$livraison,$pay);
 
         // $this->model->mailOrders($email, $newUser, $panier, $pay);

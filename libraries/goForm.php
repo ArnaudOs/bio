@@ -69,7 +69,7 @@ text-align:left;
 }
 
 th {
-background:##82ae46; color:white;
+background:#82ae46; color:white;
 font-size : 14px; text-align: center;
 }
 
@@ -159,14 +159,14 @@ width:130px;
         // Paramétrer le format des emails en HTML ou non
 
         $mail->Subject = 'votre commande<br>';
-        $mail->Body = 'Bonjour ' . $newUser . ' et merci pour votre commande<br>' . $tablo;
+        $mail->Body = 'Bonjour ' . $newUser . ' et merci pour votre commande' . $tablo . '<br>';
         // $mail->AltBody = 'Bienvenue et merci pour votre commande';
         // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
         if(!$mail->send()) {
             echo 'Message non envoyé';
             echo 'Mailer Error: ' . $mail->ErrorInfo;
         } else {
-            Session::addFlash('success',' Votre commande a été envoyée a Beebee ');
+            Session::addFlash('success'," Votre commande a été envoyée a Beebee");
         } 
         // $panier="";
         // $_SESSION=[];

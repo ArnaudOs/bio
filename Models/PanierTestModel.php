@@ -229,7 +229,7 @@ class PanierTestModel extends Model{
             // Paramétrer le format des emails en HTML ou non
     
             $mail->Subject = 'votre commande<br>';
-            $mail->Body = 'Bonjour ' . $newUser . ' et merci pour votre commande<br>' . $tablo;
+            $mail->Body = 'Bonjour ' . $newUser . ' et merci pour votre commande' . $tablo . "<br>";
             // $mail->AltBody = 'Bienvenue et merci pour votre commande';
             // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
             if(!$mail->send()) {
@@ -237,6 +237,7 @@ class PanierTestModel extends Model{
                 echo 'Mailer Error: ' . $mail->ErrorInfo;
             } else {
                 Session::addFlash('success',' Votre commande a été envoyée a Beebee ');
+              
             } 
             // $panier="";
             // $_SESSION=[];
