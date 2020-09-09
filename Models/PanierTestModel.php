@@ -139,7 +139,7 @@ class PanierTestModel extends Model{
     }
 
     th {
-    background:#2c3e50; color:white;
+    background:#82ae46;; color:white;
     font-size : 14px; text-align: center;
     }
     
@@ -206,7 +206,7 @@ class PanierTestModel extends Model{
             $mail= new PHPmailer();
             $mail->CharSet = "UTF-8";
             $mail->isHTML(true);
-            // $mail->isSMTP(); // Paramétrer le Mailer pour utiliser SMTP 
+            $mail->isSMTP(); // Paramétrer le Mailer pour utiliser SMTP 
             $mail->Host = 'smtp.ionos.fr'; // Spécifier le serveur SMTP
             $mail->SMTPAuth = true; // Activer authentication SMTP
             $mail->Username = 'contact@beebeelogis.fr'; // Votre adresse email d'envoi
@@ -218,28 +218,28 @@ class PanierTestModel extends Model{
             $mail->Port = 587;
             
     
-            $mail->setFrom($email, $newUser); // Personnaliser l'envoyeur
-            $mail->addAddress('contact@beebeelogis.fr', 'contact'); // Ajouter le destinataire
-            $mail->addReplyTo($email, 'Information'); // L'adresse de réponse
-            $mail->addCC('beebeelogis@gmail.com');
-            // $mail->addBCC('bcc@example.com');
+            $mail->setFrom('contact@beebeelogis.fr', 'contact'); // Personnaliser l'envoyeur
+            $mail->addAddress($email); // Ajouter le destinataire
+            $mail->addReplyTo('contact@beebeelogis.fr', 'contact'); // L'adresse de réponse
+            // $mail->addCC('beebeelogis@gmail.com');
+            $mail->addBCC('beebeelogis@gmail.com');
     
             // $mail->addAttachment('/var/tmp/file.tar.gz'); // Ajouter un attachement
             // $mail->addAttachment('/tmp/image.jpg', 'new.jpg'); 
             // Paramétrer le format des emails en HTML ou non
     
             $mail->Subject = 'votre commande<br>';
-            $mail->Body = 'Bonjour ' . $newUser . ' et merci pour votre commande<br>' . $tablo;
+            $mail->Body = 'Bonjour ' . $newUser . ' et merci pour votre commande' . $tablo . "<br>";
             // $mail->AltBody = 'Bienvenue et merci pour votre commande';
             // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
             if(!$mail->send()) {
-                echo 'Message could not be sent.';
+                echo 'Message non envoyé';
                 echo 'Mailer Error: ' . $mail->ErrorInfo;
             } else {
-                echo 'Message has been sent';
+                Session::addFlash('success',' Votre commande a été envoyée a Beebee ');
             } 
-            $panier="";
-            $_SESSION=[];
+            // $panier="";
+            // $_SESSION=[];
     }
     
 
