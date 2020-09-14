@@ -125,8 +125,8 @@ $passwordConfirm = Request::get('passwordconfirm', Request::SAFE);
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
         $sujet = filter_input(INPUT_POST, 'sujet', FILTER_SANITIZE_SPECIAL_CHARS);
         $msg = filter_input(INPUT_POST, 'msg', FILTER_SANITIZE_SPECIAL_CHARS);
-        // include_once("libraries/contact.php");
-        $this->model->contact($nom,$prenom,$email,$sujet, $msg);
+        include_once("libraries/contact.php");
+        // $this->model->contact($nom,$prenom,$email,$sujet, $msg);
     }
 }
 ?>
