@@ -12,7 +12,7 @@
 
         $mail= new PHPmailer();
         $mail->CharSet = "UTF-8";
-        // $mail->IsHTML(true);
+        $mail->IsHTML(true);
         $mail->IsSMTP();
        // Paramétrer le Mailer pour utiliser SMTP 
         $mail->Host = 'smtp.ionos.fr'; // Spécifier le serveur SMTP
