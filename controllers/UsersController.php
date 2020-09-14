@@ -118,14 +118,15 @@ $passwordConfirm = Request::get('passwordconfirm', Request::SAFE);
     }
 
     public function sendMailContact(){
-
+    
+    
         $nom = filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_SPECIAL_CHARS);
         $prenom = filter_input(INPUT_POST, 'prenom', FILTER_SANITIZE_SPECIAL_CHARS);
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
         $sujet = filter_input(INPUT_POST, 'sujet', FILTER_SANITIZE_SPECIAL_CHARS);
         $msg = filter_input(INPUT_POST, 'msg', FILTER_SANITIZE_SPECIAL_CHARS);
-
-        $this->model->contact($nom,$prenom,$email,$sujet, $msg);
+        include_once("libraries/contact.php");
+        // $this->model->contact($nom,$prenom,$email,$sujet, $msg);
     }
 }
 ?>
