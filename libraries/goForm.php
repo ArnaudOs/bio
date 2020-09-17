@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 // require('Models/model.php');
     // require('Session.php');
     // require('Http.php');
@@ -11,10 +12,15 @@
     // $address = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_SPECIAL_CHARS);
     // $livraison = filter_input(INPUT_POST, 'livraison', FILTER_SANITIZE_SPECIAL_CHARS);
     // $pay = filter_input(INPUT_POST, 'pay');
+=======
+   require_once('vendor/autoload.php');
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+>>>>>>> 782ba1d2ebc3a44d1ea385977f121101e3126727
 
     function insOrder($panier, $nom, $prenom, $mail, $phone, $address, $livraison, $pay)
     {
-        $db = new PDO("mysql:host=localhost;dbname=beebee;charset=utf8", "root", "", [
+        $db = new PDO("mysql:host=db5000849816.hosting-data.io;dbname=dbs748890;charset=utf8", "dbu976781","Basebeebee270*", [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         ]);
     
@@ -59,9 +65,136 @@
             $queryO->execute(compact('orders_id', 'product_id', 'quantity', 'price'));
         }
     }
+<<<<<<< HEAD
  insOrder($panier, $nom, $prenom,$mail,$phone,$address,$livraison, $pay);
 //   $_SESSION['panier']=[];
 //  Http::redirect('../index.php?controller=PanierTest&task=showOrder');
+=======
+>>>>>>> 782ba1d2ebc3a44d1ea385977f121101e3126727
 
+    insOrder($panier, $nom, $prenom, $mail, $phone, $address, $livraison, $pay);
+
+
+   function loadMailOrders($email,$newUser, $panier){
+        $tabloHTML = "
+<html>
+<head>
+
+<style>
+body, table { 
+font-family : Arial, Helvetica,
+sans-serif;
+} 
+caption { font-family : Arial, Helvetica,
+sans-serif; font-size : 18px; padding-bottom:1%;
+text-align:left; 
+}
+
+th {
+background:#82ae46; color:white;
+font-size : 14px; text-align: center;
+}
+
+table { 
+border-width:1px; border-style:solid;
+border-color:black; border-collapse:collapse;
+}
+th, td {
+border:1px; border-style:solid;
+border-color:white; text-align: center; width:120px;
+} 
+td {
+font-size : 12px;
+height:10px;
+}
+tr:nth-child(odd){ 
+background:#ecf0f1;
+} 
+td:first-child {
+width:130px; 
+}
+</style>
+
+</head>
+<body>
+
+
+<table>
+<caption>votre commande</caption>
+<tr>
+    <thead>
+    <th>produit</th>
+    <th>quantité</th>
+    <th>prix</th>
+    <th>total</th>
+    </thead>
+</tr>
+<tbody>{{tablo}}
+</tbody>
+</table>
+</body>
+</html>";
+     
+        
+        $tabl = "";
+        $total =0;
+        foreach ($panier as $element) {
+            $tabl .= "<tr>";
+    
+            $tabl .= "<td>".$element['product']->title." </td> ";
+            $tabl.= "<td>".$element['quantity']."</td>";
+            $tabl.=  "<td>".$element['product']->price." €"."</td>";
+       
+            $total+= $element['quantity'] * $element['product']->price;
+         
+            $tabl .= "</tr>";
+        }
+        $tabl.= "<tr>";
+        $tabl.= "<td  colspan='1' class='total'>Total commande : <strong>" .$total . " €"  ."</strong></td>";
+        $tabl.= "</tr>";
+
+
+        $tablo= str_replace("{{tablo}}", $tabl, $tabloHTML);
+        $mail= new PHPmailer();
+        $mail->CharSet = "UTF-8";
+        $mail->isHTML(true);
+        $mail->isSMTP(); // Paramétrer le Mailer pour utiliser SMTP 
+        $mail->Host = 'smtp.ionos.fr'; // Spécifier le serveur SMTP
+        $mail->SMTPAuth = true; // Activer authentication SMTP
+        $mail->Username = 'contact@beebeelogis.fr'; // Votre adresse email d'envoi
+        $mail->Password = 'Monmailcontact83**'; // Le mot de passe de cette adresse email
+        // $mail->Username = 'contact@webdevsolution.fr'; // Votre adresse email d'envoi
+        // $mail->Password = 'Adminmaster**!27!'; // Le mot de passe de cette adresse email
+      
+        $mail->SMTPSecure = 'tls'; // Accepter SSL
+        $mail->Port = 587;
+        
+
+        $mail->setFrom('contact@beebeelogis.fr', 'contact'); // Personnaliser l'envoyeur
+        $mail->addAddress($email); // Ajouter le destinataire
+        $mail->addReplyTo('contact@beebeelogis.fr', 'contact'); // L'adresse de réponse
+        // $mail->addCC('beebeelogis@gmail.com');
+        $mail->addBCC('beebeelogis@gmail.com');
+
+        // $mail->addAttachment('/var/tmp/file.tar.gz'); // Ajouter un attachement
+        // $mail->addAttachment('/tmp/image.jpg', 'new.jpg'); 
+        // Paramétrer le format des emails en HTML ou non
+
+        $mail->Subject = 'votre commande';
+        $mail->Body = 'Bonjour ' . $newUser . ' et merci pour votre commande' . $tablo;
+        // $mail->AltBody = 'Bienvenue et merci pour votre commande';
+        // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        if(!$mail->send()) {
+            echo 'Message non envoyé';
+            echo 'Mailer Error: ' . $mail->ErrorInfo;
+        } else {
+            Session::addFlash('success','<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong></strong>Votre commande a été envoyée a Beebee</strong></div>');
+        } 
+        // $panier="";
+        // $_SESSION=[];
+}
+$newUser = $prenom . " " . $nom;
+$email = $mail;
+loadMailOrders($email,$newUser, $panier)
 
 ?>

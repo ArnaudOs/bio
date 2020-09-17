@@ -1,50 +1,18 @@
 <?php
-require_once "Model.php";
+   require_once('vendor/autoload.php');
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
 
-require_once('vendor/autoload.php');
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-
-class UsersModel extends Model
-{
-    protected $table = "users";
-
-
-    public function findByEmail(string $email)
-    {
-        $query = $this->db->prepare('
-            SELECT * FROM users WHERE email = :email
-        ');
-
-        $query->execute([
-            ':email' => $email,
-        ]);
-
-        return $query->fetch(PDO::FETCH_ASSOC);
-    }
-
-
-    public function insertUsers($nom, $prenom, $email, $hash)
-    {
- 
-        $query = $this->db->prepare('INSERT INTO users SET
-    nom=:nom,
-    prenom=:prenom,
-    email= :email,
-    password= :password
-    ');
-        $query->execute([
-            ':nom' => $nom,
-            ':prenom' => $prenom,
-            ':email' => $email,
-            ':password' => $hash
-        ]);
-    }
-    public function contact($nom,$prenom,$email,$sujet, $msg){
+    function  contactMail($nom,$prenom,$email,$sujet, $msg){
+        // $nom = filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_SPECIAL_CHARS);
+        // $prenom = filter_input(INPUT_POST, 'prenom', FILTER_SANITIZE_SPECIAL_CHARS);
+        // $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
+        // $sujet = filter_input(INPUT_POST, 'sujet', FILTER_SANITIZE_SPECIAL_CHARS);
+        // $msg = filter_input(INPUT_POST, 'msg', FILTER_SANITIZE_SPECIAL_CHARS);
 
         $mail= new PHPmailer();
         $mail->CharSet = "UTF-8";
-        // $mail->IsHTML(true);
+        $mail->IsHTML(true);
         $mail->IsSMTP();
        // Paramétrer le Mailer pour utiliser SMTP 
         $mail->Host = 'smtp.ionos.fr'; // Spécifier le serveur SMTP
@@ -52,7 +20,8 @@ class UsersModel extends Model
         // $mail->Username = 'contact@beebeelogis.fr'; // Votre adresse email d'envoi
         // $mail->Password = 'Admincontact83*!'; // Le mot de passe de cette adresse email
         $mail->Username = 'contact@beebeelogis.fr'; // Votre adresse email d'envoi
-        $mail->Password = 'Beebeecontact270**'; // Le mot de passe de cette adresse email
+        $pass="Beebeecontact270**";
+        $mail->Password = $pass; // Le mot de passe de cette adresse email
     
         $mail->SMTPSecure = 'tls'; // Accepter SSL
         $mail->Port = 587;
@@ -82,7 +51,6 @@ class UsersModel extends Model
 
     }
 
+    contactMail($nom,$prenom,$email,$sujet, $msg);
 
-
-
-}
+?>

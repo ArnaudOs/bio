@@ -210,7 +210,8 @@ class PanierTestModel extends Model{
             $mail->Host = 'smtp.ionos.fr'; // Spécifier le serveur SMTP
             $mail->SMTPAuth = true; // Activer authentication SMTP
             $mail->Username = 'contact@beebeelogis.fr'; // Votre adresse email d'envoi
-            $mail->Password = 'Monmailcontact83**'; // Le mot de passe de cette adresse email
+            $pass='Monmailcontact83**';
+            $mail->Password = $pass; // Le mot de passe de cette adresse email
             // $mail->Username = 'contact@webdevsolution.fr'; // Votre adresse email d'envoi
             // $mail->Password = 'Adminmaster**!27!'; // Le mot de passe de cette adresse email
           
