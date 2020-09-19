@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
 // require('Models/model.php');
     // require('Session.php');
     // require('Http.php');
@@ -12,11 +11,6 @@
     // $address = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_SPECIAL_CHARS);
     // $livraison = filter_input(INPUT_POST, 'livraison', FILTER_SANITIZE_SPECIAL_CHARS);
     // $pay = filter_input(INPUT_POST, 'pay');
-=======
-   require_once('vendor/autoload.php');
-    use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\SMTP;
->>>>>>> 782ba1d2ebc3a44d1ea385977f121101e3126727
 
     function insOrder($panier, $nom, $prenom, $mail, $phone, $address, $livraison, $pay)
     {
@@ -65,12 +59,9 @@
             $queryO->execute(compact('orders_id', 'product_id', 'quantity', 'price'));
         }
     }
-<<<<<<< HEAD
  insOrder($panier, $nom, $prenom,$mail,$phone,$address,$livraison, $pay);
 //   $_SESSION['panier']=[];
 //  Http::redirect('../index.php?controller=PanierTest&task=showOrder');
-=======
->>>>>>> 782ba1d2ebc3a44d1ea385977f121101e3126727
 
     insOrder($panier, $nom, $prenom, $mail, $phone, $address, $livraison, $pay);
 
