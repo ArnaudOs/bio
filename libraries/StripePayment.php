@@ -3,7 +3,7 @@ namespace PhpStripe\Service;
 
 // require_once 'vendor/stripe/autoload.php';
 // require_once('vendor/autoload.php');
-require_once ('stripe/stripe-php/init.php');
+require_once ('vendor/stripe/stripe-php/init.php');
 
 use PDO;
 use \Stripe\Stripe;
@@ -46,20 +46,22 @@ class StripePayment
         $this->db = new PDO("mysql:host=localhost;dbname=beebee;charset=utf8", "root","",[
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 ]);
-        $query = $this->db->prepare("SELECT id, pay_client FROM users ORDER BY id DESC LIMIT 0, 1");
+        // $query = $this->db->prepare("SELECT id_orders, total FROM orders_bee ORDER BY id_orders DESC LIMIT 0, 1");
+        $query = $this->db->prepare("SELECT * FROM orders_bee ORDER BY id_orders DESC LIMIT 0, 1");
         $query->execute();
-        $price=$query->fetchAll(PDO::FETCH_ASSOC);
-        return $price;
+        $total=$query->fetchAll(PDO::FETCH_ASSOC);
+        return $total;
         
     }
 
-    public function mailStripe($customerDetailsAry, $price){
+    public function mailStripe($customerDetailsAry, $total){
         $mail= new PHPmailer();
         $mail->isSMTP(); // Paramétrer le Mailer pour utiliser SMTP 
         $mail->Host = 'smtp.ionos.fr'; // Spécifier le serveur SMTP
         $mail->SMTPAuth = true; // Activer authentication SMTP
         $mail->Username = 'contact@beebeelogis.fr'; // Votre adresse email d'envoi
-        $mail->Password = 'Magalimail270*'; // Le mot de passe de cette adresse email
+        $pass ="Beebeecontact270**";
+        $mail->Password = $pass; // Le mot de passe de cette adresse email
         $mail->SMTPSecure = 'tls'; // Accepter SSL
         $mail->Port = 587;
 
@@ -71,7 +73,7 @@ class StripePayment
         $mail->isHTML(true); // Paramétrer le format des emails en HTML ou non
 
         $mail->Subject = 'Paiement effectue';
-        $mail->Body = 'Bienvenue et merci pour votre règlement de ' . $price[0]['pay_client'] . 'vous pouvez dès a présent vous connecter' ;
+        $mail->Body = 'Bienvenue et merci pour votre commande ' . $total ;
         $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
         
         if (!$mail->send()) {
@@ -87,7 +89,7 @@ class StripePayment
     public function chargeAmountFromCard($cardDetails)
     {   
         
-        $price=$this->showLastUsers();
+        $total=$this->showLastUsers();
         // var_dump($price);
         $customerDetailsAry = array(
             'email' => $cardDetails['email'],
@@ -98,7 +100,7 @@ class StripePayment
         $cardDetailsAry = array(
             'customer' => $customerResult->id,
             // 'amount' => $cardDetails['amount']*100 ,
-            'amount' => $price[0]['pay_client']*100,
+            'amount' => $total[0]['total']*100,
             // 'amount' => $price[0]['pay_client'],
             // 'currency' => $cardDetails['currency_code'],
             'currency' => 'eur',
@@ -109,7 +111,7 @@ class StripePayment
         );
         $result = $charge->create($cardDetailsAry);
         return $result->jsonSerialize();
-        $this->mailStripe($customerDetailsAry, $price);
+        $this->mailStripe($customerDetailsAry, $total);
 
     }
 

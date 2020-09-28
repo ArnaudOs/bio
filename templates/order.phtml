@@ -1,12 +1,18 @@
 <?php 
+if($datasUser[0]->pay_choose==1){
+    $pay="Paiement à la livraison";
+}
+else if ($datasUser[0]->pay_choose==2){
+    $pay="Paiement en CB sur le site";
+}
 ?>
 <div class="container">
-<h2 class="text_bio"><span>Merci  <?php echo $prenom . " " . $nom ?>  pour votre commande</span></h2>
-<h3 class="address">Coordonnées</h3>
+<h2 class="text_bio"><span>Merci  <?php echo $_SESSION['user'] ?>  pour votre commande</span></h2>
+<h3 class="address">Coordonnées pour la commande</h3>
 <address>
-   <p>choix livraison : <?= $livraison ?></p>
-   <p> Adresse : <?= $address ?></p>
-    <p>Téléphone : <?= $phone ?></p>
+   <p>choix livraison : <?= $datasUser[0]->livraison; ?></p>
+   <p> Adresse : <?= $datasUser[0]->address; ?></p>
+    <p>Téléphone : <?= $datasUser[0]->phone; ?></p>
     <p>Paiement : <?= $pay ?></p>
 </address>
 <h2 class="text_bio"><span>Votre panier<span></h2>
@@ -46,7 +52,7 @@
     </tr>
     <?php endforeach ?>
     <tr>
-    <td colspan="1" class="total">Total commande : <?=$totalElement ?></td>
+    <td colspan="1" class="total">Total commande : <?=$totalElement ?> €</td>
     <td colspan="3" class="lastTd"></td>
     </tr>
   

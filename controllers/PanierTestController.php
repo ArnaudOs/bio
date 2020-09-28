@@ -1,7 +1,8 @@
 <?php
 require_once "Controller.php";
 require_once "libraries/Cart.php";
-
+require_once 'libraries/StripePayment.php';
+use \PhpStripe\Service\StripePayment;
 
 class PanierTestController extends Controller
 {
@@ -76,12 +77,17 @@ class PanierTestController extends Controller
 
     public function showOrder()
     {
-
-
-
+        $panier = $_SESSION['panier'];
+        $datasUser = $this->model->showLastDatas();
+        $email= $datasUser[0]->mail;
+        $newUser= $datasUser[0]->nom . $datasUser[0]->prenom;
+        // $this->view('templates/order', ['panier' => $panier, 'nom' => $nom, 'prenom' => $prenom, 'mail' => $mail, 'address' => $address, 'phone' => $phone, 'livraison' => $livraison, 'pay' => $pay]);
         // $panier = $_SESSION['panier'];
-        // $this->view('templates/order',['panier' => $panier]);
-        $this->view('templates/order');
+        include_once("libraries/mailCommande.php");
+      
+        $this->view('templates/order',['panier' => $panier,  'datasUser' => $datasUser]);
+        $_SESSION['panier'] = [];
+
     }
 
     public function showCart()
@@ -181,21 +187,21 @@ class PanierTestController extends Controller
     }
     public function showCommande()
     {   
-    //     $total=  filter_input(INPUT_POST, 'total', FILTER_VALIDATE_INT);
+        $total=  filter_input(INPUT_POST, 'total', FILTER_VALIDATE_INT);
     //     // $this->view('templates/commande',['total' => $total]);
     //    var_dump($total);
-        $this->view('templates/commande');
-        // var_dump($_SESSION['panier']);
-        // var_dump($test);
-        // $panier = $_SESSION['panier'];
-        //  var_dump($panier);
-        // var_dump( $panier [1]['product']->price);
+        $this->view('templates/commande',['total'=>$total]);
+        
     }
-
+    public function redirectSuccessPay(string $url, string $message)
+    {
+        Session::addFlash('success', $message);
+        Http::redirect($url);
+    }
 
     public function loadOrders()
     {
-       
+        $total=$_SESSION['total'];
         $panier = $_SESSION['panier'];
 
         $nom = filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -209,16 +215,20 @@ class PanierTestController extends Controller
         if (!$phone || !$address || !$mail || !$nom || !$prenom || !$livraison || !$pay) {
             die("merci de remplir tous les champs de la commande :)");
         }
-
+        
         $newUser = $prenom . " " . $nom;
+        $_SESSION['user']= $prenom . " " . $nom;
+        $_SESSION['mail'] = $mail;
         $email = $mail;
 
         $this->view('templates/order', ['panier' => $panier, 'nom' => $nom, 'prenom' => $prenom, 'mail' => $mail, 'address' => $address, 'phone' => $phone, 'livraison' => $livraison, 'pay' => $pay]);
         include_once("libraries/goForm.php");
         // insOrder($panier, $nom, $prenom, $mail, $phone, $address, $livraison, $pay);
         // $this->model->insertOrder($panier, $nom, $prenom,$mail,$phone,$address,$livraison,$pay);
-
+        $total=$this->redirectSuccessPay(
+            "index.php?controller=Pay&task=showStripe",  "Merci pour commande " . "<br>" .  "Merci Vous pouvez désormais régler votre panier de $total € !"
+        );
         // $this->model->mailOrders($email, $newUser, $panier, $pay);
-        $_SESSION['panier'] = [];
+        // $_SESSION['panier'] = [];
     }
 }

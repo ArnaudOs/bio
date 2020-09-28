@@ -11,8 +11,8 @@ if (!empty($_POST["token"])) {
     
     $stripeResponse = $stripePayment->chargeAmountFromCard($_POST);
     
-    require_once "Models/StripeModel.php";
-    $dbController = new StripeModel();
+    require_once "Models/PayModel.php";
+    $dbController = new PayModel();
     
     $amount = $stripeResponse["amount"] /100;
     
@@ -27,21 +27,26 @@ if (!empty($_POST["token"])) {
         json_encode($stripeResponse)
     );
     $query = "INSERT INTO tbl_payment (email, order_name, amount, currency_code, txn_id, payment_status, payment_response) values (?, ?, ?, ?, ?, ?, ?)";
-    $id = $dbController->insert($query, $param_type, $param_value_array);
+    $id = $dbController->insertStr($query, $param_type, $param_value_array);
     
     if ($stripeResponse['amount_refunded'] == 0 && empty($stripeResponse['failure_code']) && $stripeResponse['paid'] == 1 && $stripeResponse['captured'] == 1 && $stripeResponse['status'] == 'succeeded') {
-        $successMessage = "La transaction Stripe a été validée. The TXN ID est " . $stripeResponse["balance_transaction"];
-       
+        // $successMessage = "La transaction Stripe a été validée. The TXN ID est " . $stripeResponse["balance_transaction"];
+        $successMessage = "La transaction Stripe a été validée , merci pour votre commande";
+        HTTP::redirect("index.php?controller=PanierTest&task=showOrder");
     }
 }
+
+
 ?>
 <!-- <html>
 <head>
 <link href="css/stylePay.css" rel="stylesheet" type="text/css"/ >
 </head>
 <body> -->
+     <div class="container">
     <?php if(!empty($successMessage)) { ?>
-    <div id="success-message"><?php echo $successMessage; ?></div>
+       
+    <div id="success-message" ><?php echo $successMessage; ?></div>
     <?php  } ?>
     <div id="error-message"></div>
                 
@@ -50,12 +55,12 @@ if (!empty($_POST["token"])) {
                     <label>Card Holder Name</label> <span
                         id="card-holder-name-info" class="info"></span><br>
                     <input type="text" id="name" name="name"
-                        class="demoInputBox">
+                        class="demoInputBox" value=<?= $_SESSION['user']?>>
                 </div>
                 <div class="field-row">
                     <label>Email</label> <span id="email-info"
                         class="info"></span><br> <input type="text"
-                        id="email" name="email" class="demoInputBox">
+                        id="email" name="email" class="demoInputBox" value=<?= $_SESSION['mail']?>>
                 </div>
                 <div class="field-row">
                     <label>Card Number</label> <span
@@ -84,8 +89,6 @@ if (!empty($_POST["token"])) {
                         </select> 
                         <select name="year" id="year"
                             class="browser-default">
-                            <option value="18">2018</option>
-                            <option value="19">2019</option>
                             <option value="20">2020</option>
                             <option value="21">2021</option>
                             <option value="22">2022</option>
@@ -107,21 +110,18 @@ if (!empty($_POST["token"])) {
                     </div>
                 </div>
                 <div>
-                    <input type="submit" name="pay_now" value="Submit"
+                   <input type="submit" name="pay_now" value="Submit"
                         id="submit-btn" class="btnAction"
                         onClick="stripePay(event);">
 
-                    <div id="loader">
-                        <img alt="loader" src="LoaderIcon.gif">
-                    </div>
                 </div>
                 <input type='hidden' name='amount' value='0.5'> <input
-                    type='hidden' name='currency_code' value='USD'> <input
+                    type='hidden' name='currency_code' value='Eur'> <input
                     type='hidden' name='item_name' value='Test Product'>
                 <input type='hidden' name='item_number'
-                    value='WebDEV'>
+                    value='Beebee'>
             </form>
-    
+    </div>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>

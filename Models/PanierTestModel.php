@@ -55,7 +55,7 @@ class PanierTestModel extends Model{
     public function addingPanier($id){
        
     $query = $this->db->prepare('SELECT*FROM products WHERE id=:id');
-    $query->execute([':id' => $id]);//on peut ne pas mettre les deux points dans le token en execute 'id'
+    $query->execute([':id' => $id]);
     return $query->fetch(PDO::FETCH_OBJ);
     }
 
@@ -74,7 +74,13 @@ class PanierTestModel extends Model{
 
     }
 
-    // public function insertOrder ( $nom, $prenom,$mail,$phone,$address,$livraison, $pay){
+    public function showLastDatas(){
+    $query = $this->db->prepare("
+    SELECT nom, prenom, mail, address, livraison, phone, pay_choose FROM orders_bee ORDER BY id_orders DESC LIMIT 0, 1");
+    $query->execute();
+    return $query->fetchAll(PDO::FETCH_OBJ);
+    }
+   
         public function insertOrder ($panier, $nom, $prenom,$mail,$phone,$address,$livraison, $pay){
             
     //3. on insère la nouvelle commande
@@ -210,7 +216,7 @@ class PanierTestModel extends Model{
             $mail->Host = 'smtp.ionos.fr'; // Spécifier le serveur SMTP
             $mail->SMTPAuth = true; // Activer authentication SMTP
             $mail->Username = 'contact@beebeelogis.fr'; // Votre adresse email d'envoi
-            $pass='Monmailcontact83**';
+            $pass ="Beebeecontact8383**";
             $mail->Password = $pass; // Le mot de passe de cette adresse email
             // $mail->Username = 'contact@webdevsolution.fr'; // Votre adresse email d'envoi
             // $mail->Password = 'Adminmaster**!27!'; // Le mot de passe de cette adresse email
@@ -242,6 +248,8 @@ class PanierTestModel extends Model{
             // $panier="";
             // $_SESSION=[];
     }
+  
+
     
 
 }

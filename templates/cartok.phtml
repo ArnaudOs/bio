@@ -50,13 +50,23 @@
       <?php endforeach ?>
 
       <tr>
-        <form>
+       
           <td colspan="1" class="total" name="total"> Total commande : <strong><?= $total ?> € </strong></td>
-        </form>
-        <td colspan="4" class="lastTd"><button class="btnCom"><a href="index.php?controller=PanierTest&task=showCommande" class="btn btn-primary py-3 px-5">commander</a></button></td>
+       
+        <td colspan="6" class="lastTd">   <form action="index.php?controller=PanierTest&task=showCommande" method="POST" class="cartok" >
+  <input type="hidden" name="total" value="<?= $total ?>">
+  <button type="submit" class="btn btn-primary py-3 px-5">commander</button>
+  </form>
+</td>
+       
       </tr>
     </tbody>
   </table>
+  <!-- <form action="index.php?controller=PanierTest&task=showCommande" method="POST" class="cartok" >
+  <input type="hidden" name="total" value="<?= $total ?>">
+  <button type="submit" class="btn btn-primary py-3 px-5 col-2">commander</button>
+  </form> -->
+
 
 </div>
 </main>
